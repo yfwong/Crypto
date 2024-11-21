@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Crypto"
 include(":app")
 include(":core:model")
+include(":core:database")

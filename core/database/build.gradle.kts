@@ -1,6 +1,7 @@
 plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
+  id("com.google.devtools.ksp")
 }
 
 android {
@@ -31,8 +32,13 @@ android {
 
 dependencies {
 
+  api(project(":core:model"))
   implementation(libs.androidx.core.ktx)
-  implementation(project(":core:model"))
+  // RoomDB
+  implementation(libs.androidx.room.runtime)
+  ksp(libs.androidx.room.compiler)
+  implementation(libs.androidx.room.ktx)
+  testImplementation(libs.androidx.room.testing)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

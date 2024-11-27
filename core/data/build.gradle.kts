@@ -1,6 +1,7 @@
 plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
+  alias(libs.plugins.ksp)
 }
 
 android {
@@ -32,6 +33,7 @@ android {
 dependencies {
 
   api(project(":core:database"))
+
   implementation(libs.androidx.core.ktx)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

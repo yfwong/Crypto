@@ -5,14 +5,13 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
 import com.jim.crypto.core.database.model.CryptoCurrencyEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CryptoCurrencyDao {
 
   @Transaction
   @Query("SELECT * FROM crypto_currency")
-  fun getCryptoCurrencies(): Flow<List<CryptoCurrencyEntity>>
+  suspend fun getCryptoCurrencies(): List<CryptoCurrencyEntity>
 
   @Upsert
   suspend fun upsertCryptoCurrencies(currencies: List<CryptoCurrencyEntity>)

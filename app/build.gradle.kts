@@ -2,6 +2,7 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.ksp)
 }
 
 android {
@@ -36,7 +37,15 @@ android {
   }
 }
 
+// Compile time check
+ksp {
+  arg("KOIN_CONFIG_CHECK","true")
+}
+
 dependencies {
+
+  implementation(project(":core:database"))
+  implementation(project(":core:data"))
 
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -46,8 +55,11 @@ dependencies {
   implementation(libs.androidx.ui.graphics)
   implementation(libs.androidx.ui.tooling.preview)
   implementation(libs.androidx.material3)
-  implementation(project(":core:data"))
-  implementation(project(":core:model"))
+  // Koin
+  implementation(libs.koin.android)
+  implementation(libs.koin.test)
+  implementation(libs.koin.annotations)
+  ksp(libs.koin.ksp)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

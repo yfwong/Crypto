@@ -35,6 +35,12 @@ dependencies {
   api(project(":core:database"))
 
   implementation(libs.androidx.core.ktx)
+  // Koin
+  implementation(libs.koin.android)
+  implementation(libs.koin.test)
+  implementation(libs.koin.annotations)
+  ksp(libs.koin.ksp)
+
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)

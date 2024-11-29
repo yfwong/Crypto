@@ -13,7 +13,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.jim.crypto.ui.theme.CryptoTheme
 
-class MainActivity : ComponentActivity() {
+/**
+ * The DemoActivity should provide two datasets, Currency List A and Currency List B,
+ * which contain CurrencyInfo objects to be queried from the local database.
+ *
+ * The DemoActivity should also include five buttons for demonstrating various
+ * functionalities:
+ * ○ The first button is responsible for clearing the data in the local database.
+ * ○ The second button is used to insert the data into the local database.
+ * ○ The third button changes the CurrencyListFragment to use Currency List A -
+ * Crypto.
+ * ○ The fourth button changes the CurrencyListFragment to use Currency List B -
+ * Fiat.
+ * ○ The fifth button displays all CurrencyInfo objects that can be purchased from
+ * Currency List A and B.
+ */
+class DemoActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
@@ -21,7 +36,7 @@ class MainActivity : ComponentActivity() {
       CryptoTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
           Greeting(
-            name = "Android",
+            name = "Jim",
             modifier = Modifier.padding(innerPadding)
           )
         }

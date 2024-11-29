@@ -35,6 +35,11 @@ dependencies {
   api(project(":core:model"))
 
   implementation(libs.androidx.core.ktx)
+  // Koin
+  implementation(libs.koin.android)
+  implementation(libs.koin.test)
+  implementation(libs.koin.annotations)
+  ksp(libs.koin.ksp)
   // RoomDB
   implementation(libs.androidx.room.runtime)
   ksp(libs.androidx.room.compiler)

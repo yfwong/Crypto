@@ -13,7 +13,7 @@ import com.jim.crypto.core.database.model.FiatCurrencyEntity
   autoMigrations = [],
   exportSchema = true
 )
-internal abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
   abstract fun cryptoCurrencyDao(): CryptoCurrencyDao
   abstract fun fiatCurrencyDao(): FiatCurrencyDao
 }

@@ -1,7 +1,8 @@
 package com.jim.crypto.ui.currencylist
 
 import androidx.lifecycle.ViewModel
-import com.jim.crypto.core.data.repository.CurrencyRepository
+import com.jim.crypto.core.domain.usecase.GetCurrencyListUseCase
+import com.jim.crypto.core.domain.usecase.SearchCurrencyListUseCase
 import com.jim.crypto.core.model.data.CurrencyInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,15 +15,16 @@ data class CurrencyListUiState(
 )
 
 class CurrencyListViewModel(
-  private val currencyRepository: CurrencyRepository
+  private val getCurrencyListUseCase: GetCurrencyListUseCase,
+  private val searchCurrencyListUseCase: SearchCurrencyListUseCase
 ) : ViewModel() {
 
   private val _uiState = MutableStateFlow(CurrencyListUiState())
   val uiState = _uiState.asStateFlow()
 
   fun getAllCurrencies(): Flow<List<CurrencyInfo>> =
-    currencyRepository.getCurrencies()
+    getCurrencyListUseCase()
 
   fun searchCurrencies(query: String): Flow<List<CurrencyInfo>> =
-    currencyRepository.searchCurrencies(query)
+    searchCurrencyListUseCase(query)
 }

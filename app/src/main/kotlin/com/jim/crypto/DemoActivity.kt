@@ -27,6 +27,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.jim.crypto.di.ViewModelModifier
+import com.jim.crypto.di.ViewModelModifier.*
 import com.jim.crypto.ui.currencylist.CurrencyListScreen
 import com.jim.crypto.ui.theme.AppSpacing
 import com.jim.crypto.ui.theme.CryptoTheme
@@ -60,13 +61,13 @@ class DemoActivity : ComponentActivity() {
         NavHost(navController = navController, startDestination = "demo") {
           composable("demo") { DemoScreen(navController, demoViewModel) }
           composable("CryptoCurrencyList") {
-            CurrencyListScreen(navController, getViewModel(ViewModelModifier.Crypto))
+            CurrencyListScreen(navController, getViewModel(CryptoViewModel))
           }
           composable("FiatCurrencyList") {
-            CurrencyListScreen(navController, getViewModel(ViewModelModifier.Fiat))
+            CurrencyListScreen(navController, getViewModel(FiatViewModel))
           }
           composable("MixedCurrencyList") {
-            CurrencyListScreen(navController, getViewModel(ViewModelModifier.Mixed))
+            CurrencyListScreen(navController, getViewModel(MixedViewModel))
           }
         }
       }
@@ -81,7 +82,7 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
   var showPopup by remember { mutableStateOf<String?>(null) }
 
   if (showPopup != null) {
-    Toast.makeText(LocalContext.current, showPopup, Toast.LENGTH_SHORT).show()
+//    Toast.makeText(LocalContext.current, showPopup, Toast.LENGTH_SHORT).show()
     showPopup = null
   }
   Column(

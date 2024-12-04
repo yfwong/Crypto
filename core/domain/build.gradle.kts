@@ -5,7 +5,7 @@ plugins {
 
 android {
   namespace = "com.jim.crypto.core.domain"
-  compileSdk = 34
+  compileSdk = 35
 
   defaultConfig {
     minSdk = 26
@@ -32,8 +32,10 @@ android {
 dependencies {
 
   implementation(libs.androidx.core.ktx)
-  implementation(libs.androidx.appcompat)
-  implementation(libs.material)
+  implementation(project(":core:data"))
+  // Koin
+  implementation(libs.koin.android)
+  implementation(libs.koin.test)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)

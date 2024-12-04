@@ -1,6 +1,7 @@
 package com.jim.crypto
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -66,7 +68,7 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
   var showPopup by remember { mutableStateOf<String?>(null) }
 
   if (showPopup != null) {
-//    Toast.makeText(LocalContext.current, showPopup, Toast.LENGTH_SHORT).show()
+    Toast.makeText(LocalContext.current, showPopup, Toast.LENGTH_SHORT).show()
     showPopup = null
   }
   Column(

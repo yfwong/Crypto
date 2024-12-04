@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.jim.crypto.ui.theme.AppSpacing
@@ -32,7 +31,6 @@ fun SearchBar(
   onNavigateBack: () -> Unit
 ) {
   val focusRequester = remember { FocusRequester() }
-  val keyboardController = LocalSoftwareKeyboardController.current
 
   Row(
     modifier = Modifier
@@ -60,18 +58,19 @@ fun SearchBar(
         }
       }
     )
-    IconButton(onClick = { onQueryChange(TextFieldValue("")) }) {
-      Icon(
-        imageVector = Icons.Filled.Clear,
-        contentDescription = "Back"
-      )
+    if (searchQuery.text.isNotEmpty()) {
+      IconButton(onClick = { onQueryChange(TextFieldValue("")) }) {
+        Icon(
+          imageVector = Icons.Filled.Clear,
+          contentDescription = "Clear"
+        )
+      }
     }
   }
 
   // Automatically request focus when the composable is composed
   LaunchedEffect(Unit) {
     focusRequester.requestFocus()
-    keyboardController?.hide() // Hide the keyboard when focusing
   }
 }
 

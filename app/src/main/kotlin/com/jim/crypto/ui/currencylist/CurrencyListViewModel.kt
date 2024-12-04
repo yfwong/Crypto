@@ -1,30 +1,47 @@
 package com.jim.crypto.ui.currencylist
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jim.crypto.core.domain.usecase.GetCurrencyListUseCase
 import com.jim.crypto.core.domain.usecase.SearchCurrencyListUseCase
 import com.jim.crypto.core.model.data.CurrencyInfo
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-
-data class CurrencyListUiState(
-  val items: List<CurrencyInfo> = emptyList(),
-  val loading: Boolean = false,
-  val message: String? = null
-)
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class CurrencyListViewModel(
   private val getCurrencyListUseCase: GetCurrencyListUseCase,
   private val searchCurrencyListUseCase: SearchCurrencyListUseCase
 ) : ViewModel() {
 
-  private val _uiState = MutableStateFlow(CurrencyListUiState())
-  val uiState = _uiState.asStateFlow()
+  private val _currencies = MutableStateFlow<List<CurrencyInfo>>(emptyList())
+  val currencies: StateFlow<List<CurrencyInfo>> = _currencies
 
-  fun getAllCurrencies(): Flow<List<CurrencyInfo>> =
-    getCurrencyListUseCase()
+  private val _isSearching = MutableStateFlow(false)
+  val isSearching: StateFlow<Boolean> = _isSearching
 
-  fun searchCurrencies(query: String): Flow<List<CurrencyInfo>> =
-    searchCurrencyListUseCase(query)
+  fun getAllCurrencies() {
+    viewModelScope.launch(Dispatchers.IO) {
+      getCurrencyListUseCase().collect {
+        _currencies.value = it
+      }
+    }
+  }
+
+  fun searchCurrencies(query: String) {
+    viewModelScope.launch(Dispatchers.IO) {
+      searchCurrencyListUseCase(query).collect {
+        _currencies.value = it
+      }
+    }
+  }
+
+  fun startSearchingCurrencies() {
+    _isSearching.value = true
+  }
+
+  fun stopSearchCurrencies() {
+    _isSearching.value = false
+  }
 }

@@ -13,7 +13,7 @@ import com.jim.crypto.core.domain.usecase.SearchCurrencyListUseCase
 import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.module
 
-sealed class UseCaseQualifier {
+sealed interface UseCaseQualifier {
   object GetCryptoUseCase : Qualifier {
     override val value = "crypto.get"
   }

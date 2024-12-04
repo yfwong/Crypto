@@ -8,7 +8,7 @@ import com.jim.crypto.core.data.repository.FiatCurrencyRepository
 import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.module
 
-sealed class RepositoryQualifier {
+sealed interface RepositoryQualifier {
   object CryptoRepo : Qualifier {
     override val value = "crypto"
   }

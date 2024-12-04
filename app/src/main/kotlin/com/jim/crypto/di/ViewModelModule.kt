@@ -10,7 +10,7 @@ import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.QualifierValue
 import org.koin.dsl.module
 
-sealed class ViewModelModifier {
+sealed interface ViewModelModifier {
   object CryptoViewModel : Qualifier {
     override val value: QualifierValue = "crypto"
   }

@@ -5,10 +5,8 @@
     <string name="open_crypto_currency_list">Currency List A - Crypto</string>
     <string name="open_fiat_currency_list">Currency List B - Fiat</string>
     <string name="open_mixed_currency_list">Currency List A and B</string>
-    <string name="search">Search by name</string>
     <string name="data_cleared">Database Cleared</string>
     <string name="data_inserted">Data Inserted</string>
-    <string name="currency_list_a">Currency List A - Crypto</string>
-    <string name="currency_list_b">Currency List B - Fiat</string>
-    <string name="currency_list_both">Currency List A and B</string>
+    <string name="not_found_line_1">No results</string>
+    <string name="not_found_line_2">Try MCO</string>
 </resources>

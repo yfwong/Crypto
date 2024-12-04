@@ -1,9 +1,11 @@
 package com.jim.crypto.ui.currencylist
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -11,12 +13,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,9 +29,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.jim.crypto.R
 import com.jim.crypto.core.model.data.CurrencyInfo
 import com.jim.crypto.ui.component.LetterBadge
 import com.jim.crypto.ui.component.SearchBar
@@ -35,36 +44,72 @@ import com.jim.crypto.ui.theme.AppSpacing
 @Composable
 fun CurrencyListScreen(navController: NavController, viewModel: CurrencyListViewModel) {
   var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
-  var currencies by remember { mutableStateOf(listOf<CurrencyInfo>()) }
+  val currencies by viewModel.currencies.collectAsState()
+  val isSearching by viewModel.isSearching.collectAsState()
 
   LaunchedEffect(searchQuery) {
-    if (searchQuery.text.isEmpty()) {
-      viewModel.getAllCurrencies().collect {
-        currencies = it
-      }
+    if (isSearching) {
+      viewModel.searchCurrencies(searchQuery.text)
     } else {
-      viewModel.searchCurrencies(searchQuery.text).collect {
-        currencies = it
-      }
+      searchQuery = TextFieldValue("")
+      viewModel.getAllCurrencies()
     }
   }
 
   Column(modifier = Modifier.padding(AppSpacing.Medium)) {
-    SearchBar(
-      searchQuery = searchQuery,
-      onQueryChange = { searchQuery = it },
-      onNavigateBack = { navController.popBackStack() })
-    HorizontalDivider()
-    CurrencyList(currencies = currencies)
+    if (isSearching) {
+      SearchBar(
+        searchQuery = searchQuery,
+        onQueryChange = { searchQuery = it },
+        onNavigateBack = {
+          viewModel.stopSearchCurrencies()
+        })
+    } else {
+      Box(modifier = Modifier.fillMaxWidth()) {
+        IconButton(onClick = { viewModel.startSearchingCurrencies() }) {
+          Icon(
+            imageVector = Icons.Filled.Search,
+            contentDescription = "Search"
+          )
+        }
+      }
+    }
+    CurrencyList(currencies = currencies, showDivider = isSearching)
+    if (isSearching && currencies.isEmpty()) {
+      Column(
+        modifier = Modifier
+          .fillMaxWidth()
+          .fillMaxHeight(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+      ) {
+        Icon(
+          imageVector = ImageVector.vectorResource(R.drawable.ic_not_found),
+          contentDescription = "No results",
+        )
+        Text(
+          text = stringResource(R.string.not_found_line_1),
+          style = typography.bodyLarge,
+          color = Color.Black
+        )
+        Text(
+          text = stringResource(R.string.not_found_line_2),
+          style = typography.bodyLarge,
+          color = Color.DarkGray
+        )
+      }
+    }
   }
 }
 
 @Composable
-fun CurrencyList(currencies: List<CurrencyInfo>) {
+fun CurrencyList(currencies: List<CurrencyInfo>, showDivider: Boolean) {
   LazyColumn {
     items(currencies) { currency ->
       CurrencyItem(currency)
-      HorizontalDivider()
+      if (showDivider) {
+        HorizontalDivider()
+      }
     }
   }
 }

@@ -2,7 +2,9 @@
     <string name="app_name">Crypto</string>
     <string name="clear_database">Clear Database</string>
     <string name="insert_data">Insert Data</string>
-    <string name="open_currency_list">Open Currency List</string>
+    <string name="open_crypto_currency_list">Currency List A - Crypto</string>
+    <string name="open_fiat_currency_list">Currency List B - Fiat</string>
+    <string name="open_mixed_currency_list">Currency List A and B</string>
     <string name="search">Search by name</string>
     <string name="data_cleared">Database Cleared</string>
     <string name="data_inserted">Data Inserted</string>

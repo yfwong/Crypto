@@ -40,6 +40,8 @@ dependencies {
   implementation(libs.koin.test)
 //  implementation(libs.koin.annotations)
 //  ksp(libs.koin.ksp)
+  // Gson
+  implementation(libs.gson)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

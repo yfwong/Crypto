@@ -21,8 +21,8 @@ class CurrencyListViewModel(
   val uiState = _uiState.asStateFlow()
 
   fun getAllCurrencies(): Flow<List<CurrencyInfo>> =
-    currencyRepository.getCurrencies("")
+    currencyRepository.getCurrencies()
 
   fun searchCurrencies(query: String): Flow<List<CurrencyInfo>> =
-    currencyRepository.getCurrencies(query)
+    currencyRepository.searchCurrencies(query)
 }

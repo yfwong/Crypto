@@ -11,8 +11,11 @@ class FiatCurrencyRepository(
   private val dao: FiatCurrencyDao
 ) : CurrencyRepository {
 
-  override fun getCurrencies(query: String): Flow<List<CurrencyInfo>> =
-    dao.getFiatCurrencies("%$query%").map { flow -> flow.map { it.asExternalModel() } }
+  override fun getCurrencies(): Flow<List<CurrencyInfo>> =
+    dao.getFiatCurrencies().map { flow -> flow.map { it.asExternalModel() } }
+
+  override fun searchCurrencies(query: String): Flow<List<CurrencyInfo>> =
+    dao.searchFiatCurrencies(query).map { flow -> flow.map { it.asExternalModel() } }
 
   override suspend fun addCurrencies(currencies: List<CurrencyInfo>) =
     dao.insertFiatCurrencies(currencies.map { it.asFiatEntity() })

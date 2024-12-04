@@ -11,8 +11,11 @@ class CryptoCurrencyRepository(
   private val dao: CryptoCurrencyDao
 ) : CurrencyRepository {
 
-  override fun getCurrencies(query: String): Flow<List<CurrencyInfo>> =
-    dao.getCryptoCurrencies("%$query%").map { flow -> flow.map { it.asExternalModel() } }
+  override fun getCurrencies(): Flow<List<CurrencyInfo>> =
+    dao.getCryptoCurrencies().map { flow -> flow.map { it.asExternalModel() } }
+
+  override fun searchCurrencies(query: String): Flow<List<CurrencyInfo>> =
+    dao.searchCryptoCurrencies(query).map { flow -> flow.map { it.asExternalModel() } }
 
   override suspend fun addCurrencies(currencies: List<CurrencyInfo>) =
     dao.insertCryptoCurrencies(currencies.map { it.asCryptoEntity() })

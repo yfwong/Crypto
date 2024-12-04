@@ -1,13 +1,22 @@
 package com.jim.crypto.core.data.repository
 
+import com.jim.crypto.core.data.model.asExternalModel
+import com.jim.crypto.core.data.model.asFiatEntity
+import com.jim.crypto.core.database.dao.FiatCurrencyDao
 import com.jim.crypto.core.model.data.CurrencyInfo
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-interface FiatCurrencyRepository {
+class FiatCurrencyRepository(
+  private val dao: FiatCurrencyDao
+) : CurrencyRepository {
 
-  fun getFiatCurrencies(query: String): Flow<List<CurrencyInfo>>
+  override fun getCurrencies(query: String): Flow<List<CurrencyInfo>> =
+    dao.getFiatCurrencies("%$query%").map { flow -> flow.map { it.asExternalModel() } }
 
-  suspend fun addFiatCurrencies(currencies: List<CurrencyInfo>)
+  override suspend fun addCurrencies(currencies: List<CurrencyInfo>) =
+    dao.insertFiatCurrencies(currencies.map { it.asFiatEntity() })
 
-  suspend fun deleteFiatCurrencies()
+  override suspend fun deleteCurrencies() =
+    dao.deleteFiatCurrencies()
 }

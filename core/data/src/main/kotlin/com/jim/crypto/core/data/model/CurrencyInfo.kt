@@ -4,8 +4,6 @@ import com.jim.crypto.core.database.model.CryptoCurrencyEntity
 import com.jim.crypto.core.database.model.FiatCurrencyEntity
 import com.jim.crypto.core.model.data.CurrencyInfo
 
-fun CurrencyInfo.isCrypto() = this.code.isEmpty()
-
 fun CurrencyInfo.asCryptoEntity() = CryptoCurrencyEntity(
   id = id,
   name = name,

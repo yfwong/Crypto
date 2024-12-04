@@ -2,37 +2,40 @@ package com.jim.crypto
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jim.crypto.core.data.model.isCrypto
-import com.jim.crypto.core.data.repository.CryptoCurrencyRepository
-import com.jim.crypto.core.data.repository.FiatCurrencyRepository
+import com.jim.crypto.core.data.repository.CurrencyRepository
 import com.jim.crypto.core.model.data.CurrencyInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class DemoViewModel(
-  private val cryptoRepo: CryptoCurrencyRepository,
-  private val fiatRepo: FiatCurrencyRepository
+  private val cryptoRepo: CurrencyRepository,
+  private val fiatRepo: CurrencyRepository
 ) : ViewModel() {
 
-  fun clearDatabase(onComplete: () -> Unit) {
+  fun deleteData(onComplete: () -> Unit) {
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
-        cryptoRepo.deleteCryptoCurrencies()
-        fiatRepo.deleteFiatCurrencies()
+        cryptoRepo.deleteCurrencies()
+        fiatRepo.deleteCurrencies()
       }
       onComplete()
     }
   }
 
-  fun insertData(currencies: List<CurrencyInfo>, onComplete: () -> Unit) {
+  fun insertCryptoData(currencies: List<CurrencyInfo>, onComplete: () -> Unit) {
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
-        if (currencies.firstOrNull()?.isCrypto() == true) {
-          cryptoRepo.addCryptoCurrencies(currencies)
-        } else {
-          fiatRepo.addFiatCurrencies(currencies)
-        }
+        cryptoRepo.addCurrencies(currencies)
+      }
+      onComplete()
+    }
+  }
+
+  fun insertFiatData(currencies: List<CurrencyInfo>, onComplete: () -> Unit) {
+    viewModelScope.launch {
+      withContext(Dispatchers.IO) {
+        fiatRepo.addCurrencies(currencies)
       }
       onComplete()
     }

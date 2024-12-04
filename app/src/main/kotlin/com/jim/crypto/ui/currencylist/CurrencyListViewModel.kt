@@ -1,8 +1,7 @@
 package com.jim.crypto.ui.currencylist
 
 import androidx.lifecycle.ViewModel
-import com.jim.crypto.core.data.repository.CryptoCurrencyRepository
-import com.jim.crypto.core.data.repository.FiatCurrencyRepository
+import com.jim.crypto.core.data.repository.CurrencyRepository
 import com.jim.crypto.core.model.data.CurrencyInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,39 +14,15 @@ data class CurrencyListUiState(
 )
 
 class CurrencyListViewModel(
-  private val cryptoCurrencyRepository: CryptoCurrencyRepository,
-  private val fiatCurrencyRepository: FiatCurrencyRepository
+  private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
   private val _uiState = MutableStateFlow(CurrencyListUiState())
   val uiState = _uiState.asStateFlow()
 
   fun getAllCurrencies(): Flow<List<CurrencyInfo>> =
-    cryptoCurrencyRepository.getCryptoCurrencies("")
+    currencyRepository.getCurrencies("")
 
   fun searchCurrencies(query: String): Flow<List<CurrencyInfo>> =
-    cryptoCurrencyRepository.getCryptoCurrencies(query)
-
-//  private var fetchJob: Job? = null
-//
-//  init {
-//    fetchData()
-//  }
-//
-//  fun fetchData(query: String? = null) {
-//    fetchJob?.cancel()
-//    fetchJob = viewModelScope.launch {
-//      try {
-//        cryptoCurrencyRepository.getCryptoCurrencies()
-//          .onEach { _uiState.value = _uiState.value.copy(items = it) }
-////        _uiState.update {
-////          it.copy(items = items)
-////        }
-//      } catch (ioe: IOException) {
-//        _uiState.update {
-//          it.copy(message = ioe.message)
-//        }
-//      }
-//    }
-//  }
+    currencyRepository.getCurrencies(query)
 }

@@ -38,8 +38,8 @@ dependencies {
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
-  implementation(libs.koin.annotations)
-  ksp(libs.koin.ksp)
+//  implementation(libs.koin.annotations)
+//  ksp(libs.koin.ksp)
   // RoomDB
   implementation(libs.androidx.room.runtime)
   ksp(libs.androidx.room.compiler)

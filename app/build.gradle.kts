@@ -2,7 +2,7 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
-  alias(libs.plugins.ksp)
+  kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -37,11 +37,6 @@ android {
   }
 }
 
-// Compile time check
-ksp {
-  arg("KOIN_CONFIG_CHECK","true")
-}
-
 dependencies {
 
   implementation(project(":core:database"))
@@ -49,8 +44,12 @@ dependencies {
 
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
+  implementation(libs.androidx.lifecycle.viewmodel.ktx)
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))
+//  implementation(libs.androidx.compose.runtime)
+//  implementation(libs.androidx.compose.ui)
+//  implementation(libs.androidx.compose.foundation)
   implementation(libs.androidx.ui)
   implementation(libs.androidx.ui.graphics)
   implementation(libs.androidx.ui.tooling.preview)
@@ -58,8 +57,18 @@ dependencies {
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
-  implementation(libs.koin.annotations)
-  ksp(libs.koin.ksp)
+  implementation(libs.koin.androidx.compose)
+  // Jetpack Compose integration
+  implementation(libs.androidx.navigation.compose)
+  // Views/Fragments integration
+  implementation(libs.androidx.navigation.fragment)
+  implementation(libs.androidx.navigation.ui)
+  // Feature module support for Fragments
+  implementation(libs.androidx.navigation.dynamic.features.fragment)
+  // Testing Navigation
+  androidTestImplementation(libs.androidx.navigation.testing)
+  // JSON serialization library, works with the Kotlin serialization plugin
+  implementation(libs.kotlinx.serialization.json)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

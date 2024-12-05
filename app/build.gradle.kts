@@ -48,9 +48,6 @@ dependencies {
   implementation(libs.androidx.lifecycle.viewmodel.ktx)
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))
-//  implementation(libs.androidx.compose.runtime)
-//  implementation(libs.androidx.compose.ui)
-//  implementation(libs.androidx.compose.foundation)
   implementation(libs.androidx.ui)
   implementation(libs.androidx.ui.graphics)
   implementation(libs.androidx.ui.tooling.preview)
@@ -64,9 +61,6 @@ dependencies {
   // Views/Fragments integration
   implementation(libs.androidx.navigation.fragment)
   implementation(libs.androidx.navigation.ui)
-  // Feature module support for Fragments
-  implementation(libs.androidx.navigation.dynamic.features.fragment)
-  implementation(libs.firebase.crashlytics.buildtools)
   // Testing Navigation
   androidTestImplementation(libs.androidx.navigation.testing)
   // JSON serialization library, works with the Kotlin serialization plugin

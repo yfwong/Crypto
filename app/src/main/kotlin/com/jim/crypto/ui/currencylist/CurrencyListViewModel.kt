@@ -21,8 +21,8 @@ class CurrencyListViewModel(
   private val _currencies = MutableStateFlow<List<CurrencyInfo>>(emptyList())
   val currencies: StateFlow<List<CurrencyInfo>> = _currencies
 
-  private val _isSearching = MutableStateFlow(false)
-  val isSearching: StateFlow<Boolean> = _isSearching
+  private val _isShowSearchInput = MutableStateFlow(false)
+  val isShowSearchInput: StateFlow<Boolean> = _isShowSearchInput
 
   var query by mutableStateOf("")
     private set
@@ -47,11 +47,7 @@ class CurrencyListViewModel(
     }
   }
 
-  fun startSearchingCurrencies() {
-    _isSearching.value = true
-  }
-
-  fun stopSearchCurrencies() {
-    _isSearching.value = false
+  fun showSearchInput(show: Boolean) {
+    _isShowSearchInput.value = show
   }
 }

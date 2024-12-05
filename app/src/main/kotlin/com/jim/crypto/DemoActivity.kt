@@ -46,15 +46,9 @@ class DemoActivity : ComponentActivity() {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "demo") {
           composable("demo") { DemoScreen(navController, demoViewModel) }
-          composable("CryptoCurrencyList") {
-            CurrencyListScreen(navController, getViewModel(CryptoViewModel))
-          }
-          composable("FiatCurrencyList") {
-            CurrencyListScreen(navController, getViewModel(FiatViewModel))
-          }
-          composable("MixedCurrencyList") {
-            CurrencyListScreen(navController, getViewModel(MixedViewModel))
-          }
+          composable("CryptoCurrencyList") { CurrencyListScreen(getViewModel(CryptoViewModel)) }
+          composable("FiatCurrencyList") { CurrencyListScreen(getViewModel(FiatViewModel)) }
+          composable("MixedCurrencyList") { CurrencyListScreen(getViewModel(MixedViewModel)) }
         }
       }
     }

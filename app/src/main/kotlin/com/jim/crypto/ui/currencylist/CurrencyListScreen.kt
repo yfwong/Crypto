@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -29,20 +28,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import com.jim.crypto.R
 import com.jim.crypto.core.model.data.CurrencyInfo
 import com.jim.crypto.ui.component.LetterBadge
 import com.jim.crypto.ui.component.SearchBar
 import com.jim.crypto.ui.theme.AppSpacing
 
 @Composable
-fun CurrencyListScreen(navController: NavController, viewModel: CurrencyListViewModel) {
+fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
   var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
   val currencies by viewModel.currencies.collectAsState()
   val isSearching by viewModel.isSearching.collectAsState()
@@ -76,28 +70,7 @@ fun CurrencyListScreen(navController: NavController, viewModel: CurrencyListView
     }
     CurrencyList(currencies = currencies, showDivider = isSearching)
     if (isSearching && currencies.isEmpty()) {
-      Column(
-        modifier = Modifier
-          .fillMaxWidth()
-          .fillMaxHeight(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-      ) {
-        Icon(
-          imageVector = ImageVector.vectorResource(R.drawable.ic_not_found),
-          contentDescription = "No results",
-        )
-        Text(
-          text = stringResource(R.string.not_found_line_1),
-          style = typography.bodyLarge,
-          color = Color.Black
-        )
-        Text(
-          text = stringResource(R.string.not_found_line_2),
-          style = typography.bodyLarge,
-          color = Color.DarkGray
-        )
-      }
+      EmptyState()
     }
   }
 }

@@ -6,10 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -21,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -30,7 +29,6 @@ import com.jim.crypto.di.ViewModelModifier.CryptoViewModel
 import com.jim.crypto.di.ViewModelModifier.FiatViewModel
 import com.jim.crypto.di.ViewModelModifier.MixedViewModel
 import com.jim.crypto.ui.currencylist.CurrencyListScreen
-import com.jim.crypto.ui.theme.AppSpacing
 import com.jim.crypto.ui.theme.CryptoTheme
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -67,11 +65,14 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
   }
   Column(
     modifier = Modifier
-      .padding(AppSpacing.Medium)
+      .padding(dimensionResource(R.dimen.medium_spacing))
       .fillMaxWidth()
       .fillMaxHeight(),
     horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.Center
+    verticalArrangement = Arrangement.spacedBy(
+      dimensionResource(R.dimen.medium_spacing),
+      Alignment.CenterVertically
+    )
   ) {
     Button(onClick = {
       viewModel.deleteData {
@@ -80,21 +81,17 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
     }) {
       Text(stringResource(R.string.clear_database))
     }
-    Spacer(modifier = Modifier.height(AppSpacing.Small))
     Button(onClick = {
       viewModel.insertData { showPopup = dataInsertedText }
     }) {
       Text(stringResource(R.string.insert_data))
     }
-    Spacer(modifier = Modifier.height(AppSpacing.Small))
     Button(onClick = { navController.navigate("CryptoCurrencyList") }) {
       Text(stringResource(R.string.open_crypto_currency_list))
     }
-    Spacer(modifier = Modifier.height(AppSpacing.Small))
     Button(onClick = { navController.navigate("FiatCurrencyList") }) {
       Text(stringResource(R.string.open_fiat_currency_list))
     }
-    Spacer(modifier = Modifier.height(AppSpacing.Small))
     Button(onClick = { navController.navigate("MixedCurrencyList") }) {
       Text(stringResource(R.string.open_mixed_currency_list))
     }

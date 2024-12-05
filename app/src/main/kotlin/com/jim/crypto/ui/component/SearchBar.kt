@@ -19,6 +19,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.jim.crypto.R
 
 @Composable
@@ -73,6 +74,7 @@ fun SearchBar(
 @Preview(showBackground = true)
 @Composable
 fun PreviewSearchBarWithoutText() {
+  1.dp
   SearchBar(
     query = "",
     onQueryChange = {},

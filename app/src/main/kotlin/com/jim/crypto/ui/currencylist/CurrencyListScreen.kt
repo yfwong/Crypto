@@ -9,10 +9,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
+import com.jim.crypto.R
 import com.jim.crypto.ui.component.SearchBar
 import com.jim.crypto.ui.component.SearchButton
-import com.jim.crypto.ui.theme.AppSpacing
 
 @Composable
 fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
@@ -43,7 +43,7 @@ fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
       Box(
         modifier = Modifier
           .fillMaxWidth()
-          .padding(vertical = 4.dp)
+          .padding(vertical = dimensionResource(R.dimen.search_button_vertical_padding))
       ) {
         SearchButton(onClick = { viewModel.startSearchingCurrencies() })
       }

@@ -25,13 +25,13 @@ fun CurrencyItem(currency: CurrencyInfo) {
   Row(
     modifier = Modifier
       .fillMaxWidth()
-      .padding(AppSpacing.Small),
+      .padding(AppSpacing.Medium),
     horizontalArrangement = Arrangement.Start,
     verticalAlignment = Alignment.CenterVertically
   ) {
     // Display Badge with initial
     LetterBadge(currency.name.first().toString())
-    Spacer(modifier = Modifier.width(AppSpacing.Small))
+    Spacer(modifier = Modifier.width(AppSpacing.Medium))
     Text(text = currency.name, style = typography.bodyLarge)
     if (currency.code.isEmpty()) {
       Spacer(modifier = Modifier.weight(1f))

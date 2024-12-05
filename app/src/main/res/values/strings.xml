@@ -7,6 +7,7 @@
     <string name="open_mixed_currency_list">Currency List A and B</string>
     <string name="data_cleared">Database Cleared</string>
     <string name="data_inserted">Data Inserted</string>
+    <string name="search_placeholder">Search…</string>
     <string name="not_found_line_1">No results</string>
     <string name="not_found_line_2">Try MCO</string>
 </resources>

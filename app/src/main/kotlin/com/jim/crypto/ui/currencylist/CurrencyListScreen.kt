@@ -8,40 +8,43 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import com.jim.crypto.ui.component.SearchBar
 import com.jim.crypto.ui.component.SearchButton
 import com.jim.crypto.ui.theme.AppSpacing
 
 @Composable
 fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
-  var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
   val currencies by viewModel.currencies.collectAsState()
   val isSearching by viewModel.isSearching.collectAsState()
+  val query = viewModel.query
 
-  LaunchedEffect(searchQuery) {
+  LaunchedEffect(query) {
     if (isSearching) {
-      viewModel.searchCurrencies(searchQuery.text)
+      viewModel.searchCurrencies(query)
     } else {
-      searchQuery = TextFieldValue("")
+      viewModel.onQueryChange("")
       viewModel.getAllCurrencies()
     }
   }
 
-  Column(modifier = Modifier.padding(AppSpacing.Medium)) {
+  Column {
     if (isSearching) {
       SearchBar(
-        searchQuery = searchQuery,
-        onQueryChange = { searchQuery = it },
+        query = query,
+        onQueryChange = { viewModel.onQueryChange(it) },
         onNavigateBack = {
+          viewModel.onQueryChange("")
           viewModel.stopSearchCurrencies()
-        })
+        },
+        onClear = { viewModel.onQueryChange("") })
     } else {
-      Box(modifier = Modifier.fillMaxWidth()) {
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(vertical = 4.dp)
+      ) {
         SearchButton(onClick = { viewModel.startSearchingCurrencies() })
       }
     }

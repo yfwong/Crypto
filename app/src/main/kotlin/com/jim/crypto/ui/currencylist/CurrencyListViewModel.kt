@@ -1,5 +1,8 @@
 package com.jim.crypto.ui.currencylist
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jim.crypto.core.domain.usecase.GetCurrencyListUseCase
@@ -20,6 +23,13 @@ class CurrencyListViewModel(
 
   private val _isSearching = MutableStateFlow(false)
   val isSearching: StateFlow<Boolean> = _isSearching
+
+  var query by mutableStateOf("")
+    private set
+
+  fun onQueryChange(newQuery: String) {
+    query = newQuery
+  }
 
   fun getAllCurrencies() {
     viewModelScope.launch(Dispatchers.IO) {

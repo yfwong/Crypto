@@ -1,84 +1,90 @@
 package com.jim.crypto.ui.component
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.jim.crypto.ui.theme.AppSpacing
+import com.jim.crypto.R
 
 @Composable
 fun SearchBar(
-  searchQuery: TextFieldValue,
-  onQueryChange: (TextFieldValue) -> Unit,
-  onNavigateBack: () -> Unit
+  query: String,
+  onQueryChange: (String) -> Unit,
+  placeholder: String = stringResource(R.string.search_placeholder),
+  autoFocus: Boolean = true,
+  onNavigateBack: () -> Unit = {},
+  onClear: () -> Unit = {}
 ) {
   val focusRequester = remember { FocusRequester() }
 
-  Row(
-    modifier = Modifier
-      .fillMaxWidth()
-      .background(Color.LightGray.copy(alpha = 0.2f)),
-    horizontalArrangement = Arrangement.Start,
-    verticalAlignment = Alignment.CenterVertically
-  ) {
-    IconButton(onClick = { onNavigateBack() }) {
-      Icon(
-        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-        contentDescription = "Back"
-      )
-    }
-    BasicTextField(
-      value = searchQuery,
-      onValueChange = onQueryChange,
-      modifier = Modifier
-        .weight(1f)
-        .focusRequester(focusRequester),
-      textStyle = typography.bodyLarge,
-      decorationBox = { innerTextField ->
-        Row(modifier = Modifier.padding(AppSpacing.Small)) {
-          innerTextField()
-        }
-      }
-    )
-    if (searchQuery.text.isNotEmpty()) {
-      IconButton(onClick = { onQueryChange(TextFieldValue("")) }) {
-        Icon(
-          imageVector = Icons.Filled.Clear,
-          contentDescription = "Clear"
-        )
-      }
+  if (autoFocus) {
+    LaunchedEffect(Unit) {
+      focusRequester.requestFocus()
     }
   }
 
-  // Automatically request focus when the composable is composed
-  LaunchedEffect(Unit) {
-    focusRequester.requestFocus()
-  }
+  BackHandler(onBack = onNavigateBack)
+
+  TextField(
+    value = query,
+    onValueChange = onQueryChange,
+    placeholder = { Text(placeholder) },
+    leadingIcon = {
+      IconButton(onClick = onNavigateBack) {
+        Icon(
+          imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+          contentDescription = "Search"
+        )
+      }
+    },
+    trailingIcon = {
+      if (query.isNotEmpty()) {
+        IconButton(onClick = onClear) {
+          Icon(
+            imageVector = Icons.Default.Close,
+            contentDescription = "Clear"
+          )
+        }
+      }
+    },
+    singleLine = true,
+    modifier = Modifier
+      .fillMaxWidth()
+      .background(colorResource(R.color.search_bar_bg))
+      .focusRequester(focusRequester)
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewSearchBar() {
+fun PreviewSearchBarWithoutText() {
   SearchBar(
-    searchQuery = TextFieldValue("B"),
+    query = "",
+    onQueryChange = {},
+    onNavigateBack = {}
+  )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewSearchBarWithText() {
+  SearchBar(
+    query = "B",
     onQueryChange = {},
     onNavigateBack = {}
   )

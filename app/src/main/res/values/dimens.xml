@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="small_spacing">8dp</dimen>
-    <dimen name="medium_spacing">16dp</dimen>
-    <dimen name="large_spacing">32dp</dimen>
-    <dimen name="search_button_vertical_padding">4dp</dimen>
-    <dimen name="currency_item_padding">@dimen/medium_spacing</dimen>
-</resources>

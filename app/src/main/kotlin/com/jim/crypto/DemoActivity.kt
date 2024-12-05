@@ -19,7 +19,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -30,6 +29,7 @@ import com.jim.crypto.di.ViewModelModifier.FiatViewModel
 import com.jim.crypto.di.ViewModelModifier.MixedViewModel
 import com.jim.crypto.ui.currencylist.CurrencyListScreen
 import com.jim.crypto.ui.theme.CryptoTheme
+import com.jim.crypto.ui.theme.Dimen
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -65,12 +65,12 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
   }
   Column(
     modifier = Modifier
-      .padding(dimensionResource(R.dimen.medium_spacing))
+      .padding(Dimen.Medium)
       .fillMaxWidth()
       .fillMaxHeight(),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(
-      dimensionResource(R.dimen.medium_spacing),
+      Dimen.Medium,
       Alignment.CenterVertically
     )
   ) {

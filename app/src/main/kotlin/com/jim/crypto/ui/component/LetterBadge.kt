@@ -9,9 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.jim.crypto.R
+import com.jim.crypto.ui.theme.Dimen
 
 @Composable
 fun LetterBadge(letter: String) {
@@ -24,7 +23,7 @@ fun LetterBadge(letter: String) {
       Text(
         text = letter,
         style = MaterialTheme.typography.bodyLarge,
-        modifier = Modifier.padding(dimensionResource(R.dimen.small_spacing)),
+        modifier = Modifier.padding(Dimen.Small),
         color = Color.White
       )
     }

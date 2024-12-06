@@ -36,8 +36,6 @@ dependencies {
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
-//  implementation(libs.koin.annotations)
-//  ksp(libs.koin.ksp)
   // RoomDB
   implementation(libs.androidx.room.runtime)
   implementation(libs.androidx.paging.common.android)

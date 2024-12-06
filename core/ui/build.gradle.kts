@@ -48,7 +48,6 @@ dependencies {
   implementation(libs.koin.test)
   implementation(libs.koin.androidx.compose)
   // Jetpack Compose integration
-  implementation(libs.androidx.navigation.compose)
   implementation(libs.androidx.paging.runtime)  // Paging 3
   implementation(libs.androidx.paging.compose) // Paging for Jetpack Compose
 

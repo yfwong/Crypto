@@ -1,7 +1,6 @@
 plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
-  alias(libs.plugins.ksp)
 }
 
 android {
@@ -39,8 +38,6 @@ dependencies {
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
-//  implementation(libs.koin.annotations)
-//  ksp(libs.koin.ksp)
   // Gson
   implementation(libs.gson)
   implementation(libs.androidx.paging.common.android)

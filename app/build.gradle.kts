@@ -2,7 +2,6 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
-  kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -56,16 +55,8 @@ dependencies {
   implementation(libs.koin.androidx.compose)
   // Jetpack Compose integration
   implementation(libs.androidx.navigation.compose)
-  // Views/Fragments integration
-  implementation(libs.androidx.navigation.fragment)
-  implementation(libs.androidx.navigation.ui)
   // Testing Navigation
   androidTestImplementation(libs.androidx.navigation.testing)
-  implementation(libs.androidx.paging.runtime)  // Paging 3
-  implementation(libs.androidx.paging.compose) // Paging for Jetpack Compose
-//  implementation(libs.androidx.room.paging)       // Room Paging support
-  // JSON serialization library, works with the Kotlin serialization plugin
-  implementation(libs.kotlinx.serialization.json)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

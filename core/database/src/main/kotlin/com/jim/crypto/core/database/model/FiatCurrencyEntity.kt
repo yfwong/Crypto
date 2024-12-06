@@ -10,11 +10,11 @@ import androidx.room.PrimaryKey
   indices = [Index(value = ["name"]), Index(value = ["symbol"])]
 )
 data class FiatCurrencyEntity(
-  @PrimaryKey override val id: String,
+  @PrimaryKey val id: String,
   @ColumnInfo("name")
-  override val name: String,
+  val name: String,
   @ColumnInfo("symbol")
-  override val symbol: String,
+  val symbol: String,
   @ColumnInfo("code")
   val code: String? = null
-) : CurrencyEntity
+)

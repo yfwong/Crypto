@@ -25,12 +25,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.jim.crypto.core.ui.theme.Dimens
-import com.jim.crypto.di.ViewModelModifier.CryptoViewModel
-import com.jim.crypto.di.ViewModelModifier.FiatViewModel
-import com.jim.crypto.di.ViewModelModifier.MixedViewModel
-import com.jim.crypto.ui.theme.CryptoTheme
 import com.jim.crypto.core.ui.currencylist.CurrencyListScreen
+import com.jim.crypto.core.ui.di.ViewModelModifier.CryptoViewModel
+import com.jim.crypto.core.ui.di.ViewModelModifier.FiatViewModel
+import com.jim.crypto.core.ui.di.ViewModelModifier.MixedViewModel
+import com.jim.crypto.core.ui.theme.Dimens
+import com.jim.crypto.ui.theme.CryptoTheme
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

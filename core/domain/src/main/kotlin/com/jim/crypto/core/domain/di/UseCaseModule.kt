@@ -36,7 +36,7 @@ sealed interface UseCaseQualifier {
   }
 }
 
-val useCaseModule = module {
+val domainModule = module {
   single(SearchCryptoUseCase) {
     SearchCurrencyListUseCase(get(CryptoRepo))
   }

@@ -18,8 +18,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.jim.crypto.core.ui.theme.Dimens
 import com.jim.crypto.core.ui.component.SearchBar
+import com.jim.crypto.core.ui.theme.Dimens
+import com.jim.crypto.core.ui.utils.isEmpty
+import com.jim.crypto.core.ui.utils.isEndOfData
+import com.jim.crypto.core.ui.utils.isLoading
 
 @Composable
 fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
@@ -35,9 +38,9 @@ fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
     }
   }
 
-  Column(modifier = Modifier.background(Color.LightGray)) {
+  Column(modifier = Modifier) {
     SearchView(isShowSearchInput, query, viewModel)
-    LazyColumn(modifier = Modifier.background(Color.White)) {
+    LazyColumn {
       items(items.itemCount) { index ->
         items[index]?.let { item ->
           CurrencyItem(item)
@@ -47,13 +50,21 @@ fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
             HorizontalDivider(color = Color.Transparent)
         }
       }
-    }
-    if (items.itemSnapshotList.isEmpty()) {
-      if (isShowSearchInput) {
-        EmptySearchResultView()
-      } else {
-        EmptyNormalView()
+      when {
+        items.isLoading() -> item {
+          LoadingView()
+        }
+
+        items.isEndOfData() && !items.isEmpty() -> item {
+          EndOfDataFooterView()
+        }
       }
+    }
+    if (items.isEmpty()) {
+      if (isShowSearchInput)
+        EmptySearchResultView()
+      else
+        EmptyNormalView()
     }
   }
 }
@@ -74,6 +85,7 @@ fun SearchView(isSearchMode: Boolean, query: String, viewModel: CurrencyListView
       modifier = Modifier
         .fillMaxWidth()
         .clickable { viewModel.showSearchInput(true) }
+        .background(Color.LightGray)
         .padding(Dimens.Medium)
     ) {
       Icon(

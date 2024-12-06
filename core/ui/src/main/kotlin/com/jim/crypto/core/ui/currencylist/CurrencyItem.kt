@@ -1,5 +1,6 @@
 package com.jim.crypto.core.ui.currencylist
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +26,7 @@ fun CurrencyItem(currency: CurrencyInfo) {
   Row(
     modifier = Modifier
       .fillMaxWidth()
+      .background(Color.White)
       .padding(Dimens.Medium),
     horizontalArrangement = Arrangement.Start,
     verticalAlignment = Alignment.CenterVertically

@@ -20,9 +20,7 @@ import com.jim.crypto.core.ui.R
 @Composable
 fun EmptySearchResultView() {
   Column(
-    modifier = Modifier
-      .fillMaxWidth()
-      .fillMaxHeight(),
+    modifier = Modifier.fillMaxWidth().fillMaxHeight(),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Center
   ) {
@@ -45,6 +43,6 @@ fun EmptySearchResultView() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewEmptySearchResultView(){
+fun PreviewEmptySearchResultView() {
   EmptySearchResultView()
 }

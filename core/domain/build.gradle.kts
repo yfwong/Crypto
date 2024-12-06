@@ -36,6 +36,7 @@ dependencies {
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
+  implementation(libs.androidx.paging.common.android)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)

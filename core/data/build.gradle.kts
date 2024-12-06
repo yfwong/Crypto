@@ -42,6 +42,7 @@ dependencies {
 //  ksp(libs.koin.ksp)
   // Gson
   implementation(libs.gson)
+  implementation(libs.androidx.paging.common.android)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

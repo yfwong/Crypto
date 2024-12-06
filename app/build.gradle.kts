@@ -63,6 +63,9 @@ dependencies {
   implementation(libs.androidx.navigation.ui)
   // Testing Navigation
   androidTestImplementation(libs.androidx.navigation.testing)
+  implementation(libs.androidx.paging.runtime)  // Paging 3
+  implementation(libs.androidx.paging.compose) // Paging for Jetpack Compose
+//  implementation(libs.androidx.room.paging)       // Room Paging support
   // JSON serialization library, works with the Kotlin serialization plugin
   implementation(libs.kotlinx.serialization.json)
 

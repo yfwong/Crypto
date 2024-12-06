@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,28 +17,42 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.jim.crypto.ui.component.SearchBar
 import com.jim.crypto.ui.theme.Dimen
 
 @Composable
 fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
-  val currencies by viewModel.currencies.collectAsState()
+//  val currencies by viewModel.currencies.collectAsState()
   val isShowSearchInput by viewModel.isShowSearchInput.collectAsState()
-  val query = viewModel.query
+//  val query = viewModel.query
+  val query by viewModel.searchQuery.collectAsState()
+  val items = viewModel.pagedItems.collectAsLazyPagingItems()
 
   LaunchedEffect(query) {
     if (isShowSearchInput) {
-      viewModel.searchCurrencies(query)
+//      viewModel.searchCurrencies(query)
+      viewModel.onQueryChange(query)
     } else {
       viewModel.onQueryChange("")
-      viewModel.getAllCurrencies()
+//      viewModel.getAllCurrencies()
     }
   }
 
   Column(modifier = Modifier.background(Color.LightGray)) {
     SearchView(isShowSearchInput, query, viewModel)
-    CurrencyList(currencies = currencies, showDivider = isShowSearchInput)
-    if (isShowSearchInput && currencies.isEmpty()) {
+    LazyColumn(modifier = Modifier.background(Color.White)) {
+      items(items.itemCount) { index ->
+        items[index]?.let { item ->
+          CurrencyItem(item)
+          if (isShowSearchInput)
+            HorizontalDivider()
+          else
+            HorizontalDivider(color = Color.Transparent)
+        }
+      }
+    }
+    if (isShowSearchInput && items.itemSnapshotList.isEmpty()) {
       EmptyState()
     }
   }

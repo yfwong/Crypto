@@ -1,5 +1,9 @@
 package com.jim.crypto.core.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.jim.crypto.core.data.model.asCryptoEntity
 import com.jim.crypto.core.data.model.asExternalModel
 import com.jim.crypto.core.database.dao.CryptoCurrencyDao
@@ -10,6 +14,15 @@ import kotlinx.coroutines.flow.map
 class CryptoCurrencyRepository(
   private val dao: CryptoCurrencyDao
 ) : CurrencyRepository {
+
+  override fun getPagedItems(query: String): Flow<PagingData<CurrencyInfo>> =
+    Pager(config = PagingConfig(pageSize = 100),
+      pagingSourceFactory = { dao.getPagedItems(query) }
+    ).flow.map { pagingData ->
+      pagingData.map { entity ->
+        entity.asExternalModel()
+      }
+    }
 
   override fun getCurrencies(): Flow<List<CurrencyInfo>> =
     dao.getCryptoCurrencies().map { flow -> flow.map { it.asExternalModel() } }

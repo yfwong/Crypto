@@ -8,4 +8,5 @@ val databaseModule = module {
   single { Room.databaseBuilder(get(), AppDatabase::class.java, "app_database").build() }
   single { get<AppDatabase>().cryptoCurrencyDao() }
   single { get<AppDatabase>().fiatCurrencyDao() }
+  single { get<AppDatabase>().combinedCurrencyDao() }
 }

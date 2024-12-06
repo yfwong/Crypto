@@ -1,7 +1,7 @@
 package com.jim.crypto.core.domain.di
 
-import com.jim.crypto.core.data.di.RepositoryQualifier.CryptoRepo
-import com.jim.crypto.core.data.di.RepositoryQualifier.FiatRepo
+import com.jim.crypto.core.data.di.RepositoryQualifier
+import com.jim.crypto.core.data.di.RepositoryQualifier.*
 import com.jim.crypto.core.domain.di.UseCaseQualifier.GetCryptoUseCase
 import com.jim.crypto.core.domain.di.UseCaseQualifier.GetFiatUseCase
 import com.jim.crypto.core.domain.di.UseCaseQualifier.GetMixedUseCase
@@ -55,15 +55,9 @@ val useCaseModule = module {
   }
 
   single(GetMixedUseCase) {
-    GetCurrencyListUseCase(
-      get(CryptoRepo),
-      get(FiatRepo)
-    )
+    GetCurrencyListUseCase(get(CombinedRepo))
   }
   single(SearchMixedUseCase) {
-    SearchCurrencyListUseCase(
-      get(CryptoRepo),
-      get(FiatRepo)
-    )
+    SearchCurrencyListUseCase(get(CombinedRepo))
   }
 }

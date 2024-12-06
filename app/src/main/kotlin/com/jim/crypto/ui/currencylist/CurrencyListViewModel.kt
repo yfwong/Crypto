@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -43,8 +44,8 @@ class CurrencyListViewModel(
   val pagedItems: Flow<PagingData<CurrencyInfo>> = _searchQuery
     .debounce(300) // To handle quick typing
     .distinctUntilChanged() // Avoid unnecessary updates
-    .flatMapLatest { query -> searchCurrencyListUseCase(query) }
-    .cachedIn(viewModelScope)
+    .flatMapLatest { query -> searchCurrencyListUseCase(query).flowOn(Dispatchers.IO) }
+//    .cachedIn(viewModelScope)
 //    .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 
   fun onQueryChange(newQuery: String) {

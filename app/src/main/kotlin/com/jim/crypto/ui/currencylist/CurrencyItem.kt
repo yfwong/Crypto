@@ -33,7 +33,7 @@ fun CurrencyItem(currency: CurrencyInfo) {
     LetterBadge(currency.name.first().toString())
     Spacer(modifier = Modifier.width(Dimen.Medium))
     Text(text = currency.name, style = typography.bodyLarge)
-    if (currency.code.isEmpty()) {
+    if (currency.code == null) {
       Spacer(modifier = Modifier.weight(1f))
       Text(
         text = currency.symbol,
@@ -51,7 +51,7 @@ fun CurrencyItem(currency: CurrencyInfo) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewCryptoCurrencyItem() {
-  CurrencyItem(CurrencyInfo("BTC", "Bitcoin", "BTC"))
+  CurrencyItem(CurrencyInfo("BTC", "Bitcoin", "BTC", null))
 }
 
 @Preview(showBackground = true)

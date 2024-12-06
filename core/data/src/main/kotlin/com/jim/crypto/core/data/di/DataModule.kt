@@ -1,6 +1,7 @@
 package com.jim.crypto.core.data.di
 
 import com.jim.crypto.core.data.di.RepositoryQualifier.*
+import com.jim.crypto.core.data.repository.CombinedCurrencyRepository
 import com.jim.crypto.core.data.repository.CryptoCurrencyRepository
 import com.jim.crypto.core.data.repository.CurrencyRepository
 import com.jim.crypto.core.data.repository.DemoJsonRepository
@@ -16,10 +17,15 @@ sealed interface RepositoryQualifier {
   object FiatRepo : Qualifier {
     override val value = "fiat"
   }
+
+  object CombinedRepo : Qualifier {
+    override val value = "combined"
+  }
 }
 
 val dataModule = module {
   single<CurrencyRepository>(CryptoRepo) { CryptoCurrencyRepository(get()) }
   single<CurrencyRepository>(FiatRepo) { FiatCurrencyRepository(get()) }
+  single<CurrencyRepository>(CombinedRepo) { CombinedCurrencyRepository(get()) }
   single<DemoJsonRepository> { DemoJsonRepository(get()) }
 }

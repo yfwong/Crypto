@@ -37,8 +37,7 @@ fun FiatCurrencyEntity.asExternalModel() = CurrencyInfo(
 fun CryptoCurrencyEntity.asExternalModel() = CurrencyInfo(
   id = id,
   name = name,
-  symbol = symbol,
-  code = ""
+  symbol = symbol
 )
 
 fun CombinedCurrencyEntity.asExternalModel() = CurrencyInfo(

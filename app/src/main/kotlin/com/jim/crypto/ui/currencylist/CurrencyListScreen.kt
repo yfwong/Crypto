@@ -48,8 +48,12 @@ fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
         }
       }
     }
-    if (isShowSearchInput && items.itemSnapshotList.isEmpty()) {
-      EmptySearchResultView()
+    if (items.itemSnapshotList.isEmpty()) {
+      if (isShowSearchInput) {
+        EmptySearchResultView()
+      } else {
+        EmptyNormalView()
+      }
     }
   }
 }

@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.jim.crypto.R
 
 @Composable
-fun EmptySearchResultView() {
+fun EmptyNormalView() {
   Column(
     modifier = Modifier
       .fillMaxWidth()
@@ -27,24 +27,19 @@ fun EmptySearchResultView() {
     verticalArrangement = Arrangement.Center
   ) {
     Icon(
-      imageVector = ImageVector.vectorResource(R.drawable.ic_not_found),
+      imageVector = ImageVector.vectorResource(R.drawable.ic_no_data),
       contentDescription = "No results",
     )
     Text(
-      text = stringResource(R.string.not_found_line_1),
+      text = stringResource(R.string.no_data),
       style = typography.bodyLarge,
       color = Color.Black
-    )
-    Text(
-      text = stringResource(R.string.not_found_line_2),
-      style = typography.bodyLarge,
-      color = Color.DarkGray
     )
   }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewEmptySearchResultView(){
-  EmptySearchResultView()
+fun PreviewEmptyNormalView() {
+  EmptyNormalView()
 }

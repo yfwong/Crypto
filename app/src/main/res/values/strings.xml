@@ -10,4 +10,5 @@
     <string name="search_placeholder">Search…</string>
     <string name="not_found_line_1">No results</string>
     <string name="not_found_line_2">Try MCO</string>
+    <string name="no_data">No data</string>
 </resources>

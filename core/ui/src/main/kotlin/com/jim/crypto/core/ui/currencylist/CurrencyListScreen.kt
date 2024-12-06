@@ -1,4 +1,4 @@
-package com.jim.crypto.ui.currencylist
+package com.jim.crypto.core.ui.currencylist
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,8 +18,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.jim.crypto.ui.component.SearchBar
-import com.jim.crypto.ui.theme.Dimen
+import com.jim.crypto.core.ui.theme.Dimens
+import com.jim.crypto.core.ui.component.SearchBar
 
 @Composable
 fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
@@ -74,7 +74,7 @@ fun SearchView(isSearchMode: Boolean, query: String, viewModel: CurrencyListView
       modifier = Modifier
         .fillMaxWidth()
         .clickable { viewModel.showSearchInput(true) }
-        .padding(Dimen.Medium)
+        .padding(Dimens.Medium)
     ) {
       Icon(
         imageVector = Icons.Filled.Search,

@@ -31,8 +31,9 @@ android {
 
 dependencies {
 
+  api(project(":core:data"))
+
   implementation(libs.androidx.core.ktx)
-  implementation(project(":core:data"))
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)

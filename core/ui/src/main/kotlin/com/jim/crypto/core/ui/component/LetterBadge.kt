@@ -1,4 +1,4 @@
-package com.jim.crypto.ui.component
+package com.jim.crypto.core.ui.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.jim.crypto.ui.theme.Dimen
+import com.jim.crypto.core.ui.theme.Dimens
 
 @Composable
 fun LetterBadge(letter: String) {
@@ -23,7 +23,7 @@ fun LetterBadge(letter: String) {
       Text(
         text = letter,
         style = MaterialTheme.typography.bodyLarge,
-        modifier = Modifier.padding(Dimen.Small),
+        modifier = Modifier.padding(Dimens.Small),
         color = Color.White
       )
     }

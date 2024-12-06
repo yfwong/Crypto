@@ -1,7 +1,7 @@
 package com.jim.crypto.di
 
-import com.jim.crypto.ui.currencylist.CurrencyListViewModel
 import com.jim.crypto.DemoViewModel
+import com.jim.crypto.core.ui.currencylist.CurrencyListViewModel
 import com.jim.crypto.core.data.di.RepositoryQualifier.*
 import com.jim.crypto.core.domain.di.UseCaseQualifier.*
 import com.jim.crypto.di.ViewModelModifier.*

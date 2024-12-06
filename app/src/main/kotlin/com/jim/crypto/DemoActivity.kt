@@ -25,12 +25,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.jim.crypto.core.ui.theme.Dimens
 import com.jim.crypto.di.ViewModelModifier.CryptoViewModel
 import com.jim.crypto.di.ViewModelModifier.FiatViewModel
 import com.jim.crypto.di.ViewModelModifier.MixedViewModel
-import com.jim.crypto.ui.currencylist.CurrencyListScreen
 import com.jim.crypto.ui.theme.CryptoTheme
-import com.jim.crypto.ui.theme.Dimen
+import com.jim.crypto.core.ui.currencylist.CurrencyListScreen
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -75,7 +75,7 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
         .fillMaxWidth()
         .fillMaxHeight(),
       horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(Dimen.Medium, Alignment.CenterVertically),
+      verticalArrangement = Arrangement.spacedBy(Dimens.Medium, Alignment.CenterVertically),
     ) {
       Button(onClick = {
         viewModel.deleteData(onComplete = {

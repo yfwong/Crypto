@@ -1,11 +1,11 @@
 plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
-  alias(libs.plugins.ksp)
+  alias(libs.plugins.kotlin.compose)
 }
 
 android {
-  namespace = "com.jim.crypto.core.data"
+  namespace = "com.jim.crypto.core.ui"
   compileSdk = 35
 
   defaultConfig {
@@ -32,18 +32,26 @@ android {
 
 dependencies {
 
-  api(project(":core:database"))
-  api(project(":core:model"))
+  api(project(":core:domain"))
 
   implementation(libs.androidx.core.ktx)
+  implementation(libs.androidx.appcompat)
+  implementation(libs.androidx.lifecycle.runtime.ktx)
+  implementation(libs.androidx.lifecycle.viewmodel.ktx)
+  implementation(libs.androidx.activity.compose)
+  implementation(platform(libs.androidx.compose.bom))
+  implementation(libs.androidx.ui)
+  implementation(libs.androidx.ui.graphics)
+  implementation(libs.androidx.ui.tooling.preview)
+  implementation(libs.androidx.material3)
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
-//  implementation(libs.koin.annotations)
-//  ksp(libs.koin.ksp)
-  // Gson
-  implementation(libs.gson)
-  implementation(libs.androidx.paging.common.android)
+  implementation(libs.koin.androidx.compose)
+  // Jetpack Compose integration
+  implementation(libs.androidx.navigation.compose)
+  implementation(libs.androidx.paging.runtime)  // Paging 3
+  implementation(libs.androidx.paging.compose) // Paging for Jetpack Compose
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

@@ -1,4 +1,4 @@
-package com.jim.crypto.ui.component
+package com.jim.crypto.core.ui.component
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
@@ -18,8 +18,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.jim.crypto.R
-import com.jim.crypto.ui.theme.AppColor
+import com.jim.crypto.core.ui.R
+import com.jim.crypto.core.ui.theme.AppColors
 
 @Composable
 fun SearchBar(
@@ -65,7 +65,7 @@ fun SearchBar(
     singleLine = true,
     modifier = Modifier
       .fillMaxWidth()
-      .background(AppColor.Gray10)
+      .background(AppColors.Gray10)
       .focusRequester(focusRequester)
   )
 }

@@ -1,4 +1,4 @@
-package com.jim.crypto.ui.currencylist
+package com.jim.crypto.core.ui.currencylist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

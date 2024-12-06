@@ -1,8 +1,8 @@
-package com.jim.crypto.ui.theme
+package com.jim.crypto.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-object AppColor {
+object AppColors {
 
   val Gray10 = Color(0x1CFFFFFF)
 }

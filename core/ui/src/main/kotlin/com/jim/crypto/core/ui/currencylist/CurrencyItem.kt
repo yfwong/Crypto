@@ -1,4 +1,4 @@
-package com.jim.crypto.ui.currencylist
+package com.jim.crypto.core.ui.currencylist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -17,21 +17,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.jim.crypto.core.model.data.CurrencyInfo
-import com.jim.crypto.ui.component.LetterBadge
-import com.jim.crypto.ui.theme.Dimen
+import com.jim.crypto.core.ui.theme.Dimens
+import com.jim.crypto.core.ui.component.LetterBadge
 
 @Composable
 fun CurrencyItem(currency: CurrencyInfo) {
   Row(
     modifier = Modifier
       .fillMaxWidth()
-      .padding(Dimen.Medium),
+      .padding(Dimens.Medium),
     horizontalArrangement = Arrangement.Start,
     verticalAlignment = Alignment.CenterVertically
   ) {
     // Display Badge with initial
     LetterBadge(currency.name.first().toString())
-    Spacer(modifier = Modifier.width(Dimen.Medium))
+    Spacer(modifier = Modifier.width(Dimens.Medium))
     Text(text = currency.name, style = typography.bodyLarge)
     if (currency.code == null) {
       Spacer(modifier = Modifier.weight(1f))

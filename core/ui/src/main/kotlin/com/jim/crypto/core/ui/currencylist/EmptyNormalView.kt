@@ -1,4 +1,4 @@
-package com.jim.crypto.ui.currencylist
+package com.jim.crypto.core.ui.currencylist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.jim.crypto.R
+import com.jim.crypto.core.ui.R
 
 @Composable
 fun EmptyNormalView() {

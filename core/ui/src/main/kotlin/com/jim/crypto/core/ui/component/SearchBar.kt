@@ -26,7 +26,7 @@ fun SearchBar(
   placeholder: String = stringResource(R.string.search_placeholder),
   autoFocus: Boolean = true,
   onNavigateBack: () -> Unit = {},
-  onClear: () -> Unit = {}
+  onQueryClear: () -> Unit = {}
 ) {
   val focusRequester = remember { FocusRequester() }
 
@@ -52,7 +52,7 @@ fun SearchBar(
     },
     trailingIcon = {
       if (query.isNotEmpty()) {
-        IconButton(onClick = onClear) {
+        IconButton(onClick = onQueryClear) {
           Icon(
             imageVector = Icons.Default.Close,
             contentDescription = "Clear"

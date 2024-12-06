@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -30,41 +29,32 @@ fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
   val query by viewModel.searchQuery.collectAsState()
   val items = viewModel.pagedItems.collectAsLazyPagingItems()
 
-  LaunchedEffect(query) {
-    if (isShowSearchInput) {
-      viewModel.onQueryChange(query)
-    } else {
-      viewModel.onQueryChange("")
-    }
-  }
-
   Column(modifier = Modifier) {
     SearchView(isShowSearchInput, query, viewModel)
-    LazyColumn {
-      items(items.itemCount) { index ->
-        items[index]?.let { item ->
-          CurrencyItem(item)
-          if (isShowSearchInput)
-            HorizontalDivider()
-          else
-            HorizontalDivider(color = Color.Transparent)
-        }
-      }
-      when {
-        items.isLoading() -> item {
-          LoadingView()
+    if (items.isEmpty()) {
+      EmptyView(isShowSearchInput)
+    } else {
+      LazyColumn {
+        items(
+          count = items.itemCount,
+          key = { index -> items[index]?.id ?: "fallback-$index" }
+        ) { index ->
+          items[index]?.let { item ->
+            CurrencyItem(item)
+            HorizontalDivider(color = if (isShowSearchInput) Color.Gray else Color.Transparent)
+          }
         }
 
-        items.isEndOfData() && !items.isEmpty() -> item {
-          EndOfDataFooterView()
+        if (items.isLoading()) {
+          item {
+            LoadingView()
+          }
+        } else if (items.isEndOfData()) {
+          item {
+            EndOfDataFooterView()
+          }
         }
       }
-    }
-    if (items.isEmpty()) {
-      if (isShowSearchInput)
-        EmptySearchResultView()
-      else
-        EmptyNormalView()
     }
   }
 }
@@ -74,17 +64,15 @@ fun SearchView(isSearchMode: Boolean, query: String, viewModel: CurrencyListView
   if (isSearchMode) {
     SearchBar(
       query = query,
-      onQueryChange = { viewModel.onQueryChange(it) },
-      onNavigateBack = {
-        viewModel.onQueryChange("")
-        viewModel.showSearchInput(false)
-      },
-      onClear = { viewModel.onQueryChange("") })
+      onQueryChange = viewModel::onQueryChange,
+      onNavigateBack = viewModel::onNavigateBack,
+      onQueryClear = viewModel::onQueryClear
+    )
   } else {
     Box(
       modifier = Modifier
         .fillMaxWidth()
-        .clickable { viewModel.showSearchInput(true) }
+        .clickable { viewModel.onSearchClick() }
         .background(Color.LightGray)
         .padding(Dimens.Medium)
     ) {
@@ -94,4 +82,12 @@ fun SearchView(isSearchMode: Boolean, query: String, viewModel: CurrencyListView
       )
     }
   }
+}
+
+@Composable
+fun EmptyView(isShowSearchInput: Boolean) {
+  if (isShowSearchInput)
+    EmptySearchResultView()
+  else
+    EmptyNormalView()
 }

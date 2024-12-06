@@ -17,7 +17,7 @@ import androidx.compose.ui.res.vectorResource
 import com.jim.crypto.R
 
 @Composable
-fun EmptyState() {
+fun EmptySearchResultView() {
   Column(
     modifier = Modifier
       .fillMaxWidth()

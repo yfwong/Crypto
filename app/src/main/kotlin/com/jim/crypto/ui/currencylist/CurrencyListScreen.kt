@@ -23,19 +23,15 @@ import com.jim.crypto.ui.theme.Dimen
 
 @Composable
 fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
-//  val currencies by viewModel.currencies.collectAsState()
   val isShowSearchInput by viewModel.isShowSearchInput.collectAsState()
-//  val query = viewModel.query
   val query by viewModel.searchQuery.collectAsState()
   val items = viewModel.pagedItems.collectAsLazyPagingItems()
 
   LaunchedEffect(query) {
     if (isShowSearchInput) {
-//      viewModel.searchCurrencies(query)
       viewModel.onQueryChange(query)
     } else {
       viewModel.onQueryChange("")
-//      viewModel.getAllCurrencies()
     }
   }
 
@@ -53,7 +49,7 @@ fun CurrencyListScreen(viewModel: CurrencyListViewModel) {
       }
     }
     if (isShowSearchInput && items.itemSnapshotList.isEmpty()) {
-      EmptyState()
+      EmptySearchResultView()
     }
   }
 }

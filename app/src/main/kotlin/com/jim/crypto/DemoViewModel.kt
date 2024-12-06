@@ -39,13 +39,7 @@ class DemoViewModel(
     }
   }
 
-  // Function to update the snackbar message
-  fun showSnackbar(message: String) {
+  fun triggerSnackbar(message: String) {
     _snackbarMessage.value = message
-  }
-
-  // Function to reset the snackbar message after it's been shown
-  fun onSnackbarShown() {
-    _snackbarMessage.value = null
   }
 }

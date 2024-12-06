@@ -1,7 +1,9 @@
 package com.jim.crypto.ui.currencylist
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.jim.crypto.core.domain.usecase.SearchCurrencyListUseCase
 import com.jim.crypto.core.model.data.CurrencyInfo
 import kotlinx.coroutines.Dispatchers
@@ -30,8 +32,7 @@ class CurrencyListViewModel(
     .debounce(300) // To handle quick typing
     .distinctUntilChanged() // Avoid unnecessary updates
     .flatMapLatest { query -> searchCurrencyListUseCase(query).flowOn(Dispatchers.IO) }
-//    .cachedIn(viewModelScope)
-//    .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
+    .cachedIn(viewModelScope)
 
   fun onQueryChange(newQuery: String) {
     _searchQuery.value = newQuery

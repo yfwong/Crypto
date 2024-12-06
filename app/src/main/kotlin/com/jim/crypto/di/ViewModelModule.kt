@@ -39,7 +39,7 @@ val viewModelModule = module {
   }
   viewModel(MixedViewModel) {
     CurrencyListViewModel(
-      get(SearchMixedUseCase)
+      get(SearchCombinedUseCase)
     )
   }
 }

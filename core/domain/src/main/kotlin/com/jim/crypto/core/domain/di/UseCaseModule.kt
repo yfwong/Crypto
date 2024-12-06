@@ -5,7 +5,7 @@ import com.jim.crypto.core.data.di.RepositoryQualifier.CryptoRepo
 import com.jim.crypto.core.data.di.RepositoryQualifier.FiatRepo
 import com.jim.crypto.core.domain.di.UseCaseQualifier.SearchCryptoUseCase
 import com.jim.crypto.core.domain.di.UseCaseQualifier.SearchFiatUseCase
-import com.jim.crypto.core.domain.di.UseCaseQualifier.SearchMixedUseCase
+import com.jim.crypto.core.domain.di.UseCaseQualifier.SearchCombinedUseCase
 import com.jim.crypto.core.domain.usecase.SearchCurrencyListUseCase
 import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.module
@@ -31,7 +31,7 @@ sealed interface UseCaseQualifier {
     override val value = "fiat.search"
   }
 
-  object SearchMixedUseCase : Qualifier {
+  object SearchCombinedUseCase : Qualifier {
     override val value = "mixed.search"
   }
 }
@@ -43,7 +43,7 @@ val useCaseModule = module {
   single(SearchFiatUseCase) {
     SearchCurrencyListUseCase(get(FiatRepo))
   }
-  single(SearchMixedUseCase) {
+  single(SearchCombinedUseCase) {
     SearchCurrencyListUseCase(get(CombinedRepo))
   }
 }

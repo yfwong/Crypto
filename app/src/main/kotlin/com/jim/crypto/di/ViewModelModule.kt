@@ -29,19 +29,16 @@ val viewModelModule = module {
 
   viewModel(CryptoViewModel) {
     CurrencyListViewModel(
-      get(GetCryptoUseCase),
       get(SearchCryptoUseCase)
     )
   }
   viewModel(FiatViewModel) {
     CurrencyListViewModel(
-      get(GetFiatUseCase),
       get(SearchFiatUseCase)
     )
   }
   viewModel(MixedViewModel) {
     CurrencyListViewModel(
-      get(GetMixedUseCase),
       get(SearchMixedUseCase)
     )
   }

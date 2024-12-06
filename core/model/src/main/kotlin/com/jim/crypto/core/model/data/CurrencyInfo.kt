@@ -1,7 +1,7 @@
 package com.jim.crypto.core.model.data
 
 /**
- * Represents a currency, which can be either a cryptocurrency or a fiat currency.
+ * External model for currency, which can be either a cryptocurrency or a fiat currency.
  */
 data class CurrencyInfo(
   val id: String,

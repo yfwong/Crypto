@@ -5,6 +5,8 @@ import com.jim.crypto.core.database.model.CryptoCurrencyEntity
 import com.jim.crypto.core.database.model.FiatCurrencyEntity
 import com.jim.crypto.core.model.data.CurrencyInfo
 
+// Mapping functions between DB entity and external model
+
 fun CurrencyInfo.asCryptoEntity() = CryptoCurrencyEntity(
   id = id,
   name = name,

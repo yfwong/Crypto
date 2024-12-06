@@ -8,11 +8,7 @@ interface CurrencyRepository {
 
   fun getPagedItems(query: String): Flow<PagingData<CurrencyInfo>>
 
-  fun getCurrencies(): Flow<List<CurrencyInfo>>
+  suspend fun inertItems(currencies: List<CurrencyInfo>)
 
-  fun searchCurrencies(query: String): Flow<List<CurrencyInfo>>
-
-  suspend fun addCurrencies(currencies: List<CurrencyInfo>)
-
-  suspend fun deleteCurrencies()
+  suspend fun deleteItems()
 }

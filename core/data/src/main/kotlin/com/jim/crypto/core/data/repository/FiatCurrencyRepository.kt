@@ -24,15 +24,9 @@ class FiatCurrencyRepository(
       }
     }
 
-  override fun getCurrencies(): Flow<List<CurrencyInfo>> =
-    dao.getFiatCurrencies().map { flow -> flow.map { it.asExternalModel() } }
+  override suspend fun inertItems(currencies: List<CurrencyInfo>) =
+    dao.insertItems(currencies.map { it.asFiatEntity() })
 
-  override fun searchCurrencies(query: String): Flow<List<CurrencyInfo>> =
-    dao.searchFiatCurrencies(query).map { flow -> flow.map { it.asExternalModel() } }
-
-  override suspend fun addCurrencies(currencies: List<CurrencyInfo>) =
-    dao.insertFiatCurrencies(currencies.map { it.asFiatEntity() })
-
-  override suspend fun deleteCurrencies() =
-    dao.deleteFiatCurrencies()
+  override suspend fun deleteItems() =
+    dao.deleteItems()
 }

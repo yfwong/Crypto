@@ -22,8 +22,8 @@ class DemoViewModel(
   fun deleteData(onComplete: () -> Unit) {
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
-        cryptoRepo.deleteCurrencies()
-        fiatRepo.deleteCurrencies()
+        cryptoRepo.deleteItems()
+        fiatRepo.deleteItems()
       }
       onComplete()
     }
@@ -32,8 +32,8 @@ class DemoViewModel(
   fun insertData(onComplete: () -> Unit) {
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
-        cryptoRepo.addCurrencies(demoJsonRepo.getCryptoDataFromJson())
-        fiatRepo.addCurrencies(demoJsonRepo.getFiatDataFromJson())
+        cryptoRepo.inertItems(demoJsonRepo.getCryptoDataFromJson())
+        fiatRepo.inertItems(demoJsonRepo.getFiatDataFromJson())
       }
       onComplete()
     }

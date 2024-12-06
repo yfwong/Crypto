@@ -24,15 +24,9 @@ class CryptoCurrencyRepository(
       }
     }
 
-  override fun getCurrencies(): Flow<List<CurrencyInfo>> =
-    dao.getCryptoCurrencies().map { flow -> flow.map { it.asExternalModel() } }
+  override suspend fun inertItems(currencies: List<CurrencyInfo>) =
+    dao.insertItems(currencies.map { it.asCryptoEntity() })
 
-  override fun searchCurrencies(query: String): Flow<List<CurrencyInfo>> =
-    dao.searchCryptoCurrencies(query).map { flow -> flow.map { it.asExternalModel() } }
-
-  override suspend fun addCurrencies(currencies: List<CurrencyInfo>) =
-    dao.insertCryptoCurrencies(currencies.map { it.asCryptoEntity() })
-
-  override suspend fun deleteCurrencies() =
-    dao.deleteCryptoCurrencies()
+  override suspend fun deleteItems() =
+    dao.deleteItems()
 }

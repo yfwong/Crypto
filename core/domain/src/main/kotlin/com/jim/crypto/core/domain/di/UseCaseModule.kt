@@ -1,14 +1,11 @@
 package com.jim.crypto.core.domain.di
 
-import com.jim.crypto.core.data.di.RepositoryQualifier
-import com.jim.crypto.core.data.di.RepositoryQualifier.*
-import com.jim.crypto.core.domain.di.UseCaseQualifier.GetCryptoUseCase
-import com.jim.crypto.core.domain.di.UseCaseQualifier.GetFiatUseCase
-import com.jim.crypto.core.domain.di.UseCaseQualifier.GetMixedUseCase
+import com.jim.crypto.core.data.di.RepositoryQualifier.CombinedRepo
+import com.jim.crypto.core.data.di.RepositoryQualifier.CryptoRepo
+import com.jim.crypto.core.data.di.RepositoryQualifier.FiatRepo
 import com.jim.crypto.core.domain.di.UseCaseQualifier.SearchCryptoUseCase
 import com.jim.crypto.core.domain.di.UseCaseQualifier.SearchFiatUseCase
 import com.jim.crypto.core.domain.di.UseCaseQualifier.SearchMixedUseCase
-import com.jim.crypto.core.domain.usecase.GetCurrencyListUseCase
 import com.jim.crypto.core.domain.usecase.SearchCurrencyListUseCase
 import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.module
@@ -40,22 +37,11 @@ sealed interface UseCaseQualifier {
 }
 
 val useCaseModule = module {
-  single(GetCryptoUseCase) {
-    GetCurrencyListUseCase(get(CryptoRepo))
-  }
   single(SearchCryptoUseCase) {
     SearchCurrencyListUseCase(get(CryptoRepo))
   }
-
-  single(GetFiatUseCase) {
-    GetCurrencyListUseCase(get(FiatRepo))
-  }
   single(SearchFiatUseCase) {
     SearchCurrencyListUseCase(get(FiatRepo))
-  }
-
-  single(GetMixedUseCase) {
-    GetCurrencyListUseCase(get(CombinedRepo))
   }
   single(SearchMixedUseCase) {
     SearchCurrencyListUseCase(get(CombinedRepo))

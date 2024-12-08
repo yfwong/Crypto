@@ -26,7 +26,7 @@ import org.junit.Test
 class CurrencyListViewModelTest {
 
   private lateinit var viewModel: CurrencyListViewModel
-  private val searchCurrencyListUseCase: SearchCurrencyListUseCase = mockk(/*relaxed = true*/)
+  private val searchCurrencyListUseCase: SearchCurrencyListUseCase = mockk(relaxed = true)
   private val testDispatcher = StandardTestDispatcher()
 
   @Before

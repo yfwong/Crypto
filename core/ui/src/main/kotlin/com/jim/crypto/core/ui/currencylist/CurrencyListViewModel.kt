@@ -25,7 +25,7 @@ class CurrencyListViewModel(
   private val _searchQuery = MutableStateFlow("")
   val searchQuery: StateFlow<String> = _searchQuery
 
-  private companion object {
+  companion object {
     const val SEARCH_DEBOUNCE_MS = 200L
   }
 

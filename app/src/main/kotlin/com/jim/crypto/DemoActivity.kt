@@ -78,16 +78,12 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
       verticalArrangement = Arrangement.spacedBy(Dimens.Medium, Alignment.CenterVertically),
     ) {
       Button(onClick = {
-        viewModel.deleteData(onComplete = {
-          viewModel.triggerSnackbar(context.getString(R.string.data_cleared))
-        })
+        viewModel.onDataDelete(context.getString(R.string.data_cleared))
       }) {
         Text(stringResource(R.string.clear_database))
       }
       Button(onClick = {
-        viewModel.insertData(onComplete = {
-          viewModel.triggerSnackbar(context.getString(R.string.insert_data))
-        })
+        viewModel.onDataInsert(context.getString(R.string.insert_data))
       }) {
         Text(stringResource(R.string.insert_data))
       }

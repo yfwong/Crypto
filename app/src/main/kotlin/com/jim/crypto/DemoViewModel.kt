@@ -19,27 +19,23 @@ class DemoViewModel(
   private val _snackbarMessage = MutableStateFlow<String?>(null)
   val snackbarMessage: StateFlow<String?> = _snackbarMessage
 
-  fun deleteData(onComplete: () -> Unit) {
+  fun onDataDelete(message: String) {
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         cryptoRepo.deleteItems()
         fiatRepo.deleteItems()
       }
-      onComplete()
+      _snackbarMessage.value = message
     }
   }
 
-  fun insertData(onComplete: () -> Unit) {
+  fun onDataInsert(message: String) {
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         cryptoRepo.inertItems(demoJsonRepo.getCryptoDataFromJson())
         fiatRepo.inertItems(demoJsonRepo.getFiatDataFromJson())
       }
-      onComplete()
+      _snackbarMessage.value = message
     }
-  }
-
-  fun triggerSnackbar(message: String) {
-    _snackbarMessage.value = message
   }
 }

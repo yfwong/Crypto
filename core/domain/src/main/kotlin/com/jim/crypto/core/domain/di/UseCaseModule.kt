@@ -37,13 +37,13 @@ sealed interface UseCaseQualifier {
 }
 
 val domainModule = module {
-  single(SearchCryptoUseCase) {
+  factory(SearchCryptoUseCase) {
     SearchCurrencyListUseCase(get(CryptoRepo))
   }
-  single(SearchFiatUseCase) {
+  factory(SearchFiatUseCase) {
     SearchCurrencyListUseCase(get(FiatRepo))
   }
-  single(SearchCombinedUseCase) {
+  factory(SearchCombinedUseCase) {
     SearchCurrencyListUseCase(get(CombinedRepo))
   }
 }

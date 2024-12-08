@@ -42,7 +42,7 @@ class CurrencyListViewModelTest {
 
   @Test
   fun `onQueryChange updates searchQuery`() = runTest {
-    // mimic typing query string
+    // type a query string
     viewModel.onQueryChange("BTC")
 
     assertEquals("BTC", viewModel.searchQuery.value)
@@ -50,13 +50,15 @@ class CurrencyListViewModelTest {
 
   @Test
   fun `onNavigateBack clears searchQuery and hides search input`() = runTest {
+    // click search button
     viewModel.onSearchClick()
+    // type something in text input
     viewModel.onQueryChange("BTC")
 
-    // mimic clicking Back
+    // click Back
     viewModel.onNavigateBack()
 
-    assertEquals("BTC", viewModel.searchQuery.value)
+    assertEquals("", viewModel.searchQuery.value)
     assertFalse(viewModel.isShowSearchInput.value)
   }
 
@@ -65,7 +67,7 @@ class CurrencyListViewModelTest {
     val mockPagingData = PagingData.from(listOf<CurrencyInfo>())
     every { searchCurrencyListUseCase.invoke(any()) } returns flow { emit(mockPagingData) }
 
-    // mimic typing query string
+    // type a query string
     viewModel.onQueryChange("BTC")
     val job = launch {
       viewModel.pagedItems.test {
@@ -82,7 +84,7 @@ class CurrencyListViewModelTest {
   fun `onSearchClick shows search input`() = runTest {
     viewModel.onSearchClick()
 
-    // mimic clicking Search button
+    // click Search button
     assertTrue(viewModel.isShowSearchInput.value)
   }
 
@@ -90,7 +92,7 @@ class CurrencyListViewModelTest {
   fun `onQueryClear clears searchQuery`() = runTest {
     viewModel.onQueryChange("BTC")
 
-    // mimic clicking Clear button
+    // click Clear button
     viewModel.onQueryClear()
 
     assertEquals("", viewModel.searchQuery.value)

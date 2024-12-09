@@ -1,6 +1,5 @@
 package com.jim.crypto.core.database.dao
 
-import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -19,7 +18,7 @@ interface FiatCurrencyDao {
         OR symbol LIKE :query || '%'
         """
   )
-  fun getPagedItems(query: String): PagingSource<Int, FiatCurrencyEntity>
+  fun getItems(query: String): Flow<List<FiatCurrencyEntity>>
 
   @Query("SELECT * FROM fiat_currency")
   fun getItems(): Flow<List<FiatCurrencyEntity>>

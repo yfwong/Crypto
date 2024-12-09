@@ -83,7 +83,7 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
         Text(stringResource(R.string.clear_database))
       }
       Button(onClick = {
-        viewModel.onDataInsert(context.getString(R.string.insert_data))
+        viewModel.onDataInsert(context.getString(R.string.data_inserted))
       }) {
         Text(stringResource(R.string.insert_data))
       }

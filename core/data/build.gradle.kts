@@ -35,12 +35,12 @@ dependencies {
   api(project(":core:model"))
 
   implementation(libs.androidx.core.ktx)
+  implementation(libs.androidx.paging.runtime.ktx)
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
   // Gson
   implementation(libs.gson)
-  implementation(libs.androidx.paging.common.android)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

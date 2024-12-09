@@ -34,10 +34,10 @@ dependencies {
   api(project(":core:data"))
 
   implementation(libs.androidx.core.ktx)
+  implementation(libs.androidx.paging.runtime.ktx)
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
-  implementation(libs.androidx.paging.common.android)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   testImplementation(libs.kotlinx.coroutines.test)

@@ -38,7 +38,6 @@ dependencies {
   implementation(libs.koin.test)
   // RoomDB
   implementation(libs.androidx.room.runtime)
-  implementation(libs.androidx.paging.common.android)
   implementation(libs.androidx.room.paging)       // Room Paging support
   ksp(libs.androidx.room.compiler)
   implementation(libs.androidx.room.ktx)

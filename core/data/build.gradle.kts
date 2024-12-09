@@ -43,4 +43,8 @@ dependencies {
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.mockk)
+  testImplementation(libs.turbine)
+  testImplementation(libs.androidx.paging.testing)
 }

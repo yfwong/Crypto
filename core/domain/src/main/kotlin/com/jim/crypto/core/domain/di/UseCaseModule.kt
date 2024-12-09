@@ -11,18 +11,6 @@ import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.module
 
 sealed interface UseCaseQualifier {
-  object GetCryptoUseCase : Qualifier {
-    override val value = "crypto.get"
-  }
-
-  object GetFiatUseCase : Qualifier {
-    override val value = "fiat.get"
-  }
-
-  object GetMixedUseCase : Qualifier {
-    override val value = "mixed.get"
-  }
-
   object SearchCryptoUseCase : Qualifier {
     override val value = "crypto.search"
   }

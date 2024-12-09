@@ -20,13 +20,6 @@ fun CurrencyInfo.asFiatEntity() = FiatCurrencyEntity(
   code = code
 )
 
-fun CurrencyInfo.asCombinedEntity() = CombinedCurrencyEntity(
-  id = id,
-  name = name,
-  symbol = symbol,
-  code = code
-)
-
 fun FiatCurrencyEntity.asExternalModel() = CurrencyInfo(
   id = id,
   name = name,

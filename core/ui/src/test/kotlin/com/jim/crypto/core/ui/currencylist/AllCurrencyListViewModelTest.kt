@@ -4,7 +4,6 @@ package com.jim.crypto.core.ui.currencylist
 
 import androidx.paging.PagingData
 import app.cash.turbine.test
-import com.jim.crypto.core.domain.usecase.SearchCurrencyListUseCase
 import com.jim.crypto.core.model.data.CurrencyInfo
 import io.mockk.every
 import io.mockk.mockk
@@ -24,16 +23,16 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class CurrencyListViewModelTest {
+class AllCurrencyListViewModelTest {
 
-  private lateinit var viewModel: CurrencyListViewModel
+  private lateinit var viewModel: AllCurrencyListViewModel
   private val searchCurrencyListUseCase: SearchCurrencyListUseCase = mockk(relaxed = true)
   private val testDispatcher = StandardTestDispatcher()
 
   @Before
   fun setup() {
     Dispatchers.setMain(testDispatcher)
-    viewModel = CurrencyListViewModel(searchCurrencyListUseCase)
+    viewModel = AllCurrencyListViewModel(searchCurrencyListUseCase)
   }
 
   @After
@@ -76,7 +75,7 @@ class CurrencyListViewModelTest {
         cancelAndIgnoreRemainingEvents()
       }
     }
-    advanceTimeBy(CurrencyListViewModel.SEARCH_DEBOUNCE_MS)
+    advanceTimeBy(AllCurrencyListViewModel.SEARCH_DEBOUNCE_MS)
 
     job.cancel()
   }

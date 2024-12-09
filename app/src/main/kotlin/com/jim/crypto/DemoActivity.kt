@@ -25,10 +25,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.jim.crypto.core.ui.currencylist.CurrencyListScreen
-import com.jim.crypto.core.ui.di.ViewModelModifier.CryptoViewModel
-import com.jim.crypto.core.ui.di.ViewModelModifier.FiatViewModel
-import com.jim.crypto.core.ui.di.ViewModelModifier.MixedViewModel
+import com.jim.crypto.core.ui.currencylist.AllCurrencyListScreen
+import com.jim.crypto.core.ui.currencylist.CryptoCurrencyListScreen
+import com.jim.crypto.core.ui.currencylist.FiatCurrencyListScreen
 import com.jim.crypto.core.ui.theme.Dimens
 import com.jim.crypto.ui.theme.CryptoTheme
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -45,9 +44,9 @@ class DemoActivity : ComponentActivity() {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "demo") {
           composable("demo") { DemoScreen(navController, demoViewModel) }
-          composable("CryptoCurrencyList") { CurrencyListScreen(getViewModel(CryptoViewModel)) }
-          composable("FiatCurrencyList") { CurrencyListScreen(getViewModel(FiatViewModel)) }
-          composable("MixedCurrencyList") { CurrencyListScreen(getViewModel(MixedViewModel)) }
+          composable("CryptoCurrencyList") { CryptoCurrencyListScreen(getViewModel()) }
+          composable("FiatCurrencyList") { FiatCurrencyListScreen(getViewModel()) }
+          composable("MixedCurrencyList") { AllCurrencyListScreen(getViewModel()) }
         }
       }
     }

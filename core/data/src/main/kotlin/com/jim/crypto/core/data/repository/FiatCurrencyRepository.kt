@@ -1,9 +1,5 @@
 package com.jim.crypto.core.data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.map
 import com.jim.crypto.core.data.model.asExternalModel
 import com.jim.crypto.core.data.model.asFiatEntity
 import com.jim.crypto.core.database.dao.FiatCurrencyDao
@@ -15,14 +11,11 @@ class FiatCurrencyRepository(
   private val dao: FiatCurrencyDao
 ) : CurrencyRepository {
 
-  override fun getPagedItems(query: String): Flow<PagingData<CurrencyInfo>> =
-    Pager(config = PagingConfig(pageSize = 100),
-      pagingSourceFactory = { dao.getPagedItems(query) }
-    ).flow.map { pagingData ->
-      pagingData.map { entity ->
-        entity.asExternalModel()
-      }
-    }
+  override fun getItems(): Flow<List<CurrencyInfo>> =
+    dao.getItems().map { flow -> flow.map { it.asExternalModel() } }
+
+  override fun getItems(query: String): Flow<List<CurrencyInfo>> =
+    dao.getItems(query).map { flow -> flow.map { it.asExternalModel() } }
 
   override suspend fun inertItems(currencies: List<CurrencyInfo>) =
     dao.insertItems(currencies.map { it.asFiatEntity() })

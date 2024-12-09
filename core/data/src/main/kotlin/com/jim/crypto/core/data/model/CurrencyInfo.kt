@@ -1,6 +1,5 @@
 package com.jim.crypto.core.data.model
 
-import com.jim.crypto.core.database.model.CombinedCurrencyEntity
 import com.jim.crypto.core.database.model.CryptoCurrencyEntity
 import com.jim.crypto.core.database.model.FiatCurrencyEntity
 import com.jim.crypto.core.model.data.CurrencyInfo
@@ -31,11 +30,4 @@ fun CryptoCurrencyEntity.asExternalModel() = CurrencyInfo(
   id = id,
   name = name,
   symbol = symbol
-)
-
-fun CombinedCurrencyEntity.asExternalModel() = CurrencyInfo(
-  id = id,
-  name = name,
-  symbol = symbol,
-  code = code
 )

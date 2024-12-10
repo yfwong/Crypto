@@ -2,10 +2,11 @@ package com.jim.crypto
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.navigation.NavHostController
@@ -34,24 +36,28 @@ import com.jim.crypto.core.ui.currencylist.CurrencyListFragment
 import com.jim.crypto.core.ui.currencylist.CurrencyListScreen
 import com.jim.crypto.core.ui.currencylist.CurrencyListViewModel
 import com.jim.crypto.core.ui.theme.Dimens
+import com.jim.crypto.ui.theme.CryptoTheme
 import kotlinx.serialization.json.Json
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DemoActivity : AppCompatActivity() {
+class DemoActivity : FragmentActivity() {
 
   private val demoViewModel: DemoViewModel by viewModel()
   private val currencyListViewModel: CurrencyListViewModel by viewModel()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
     setContent {
-      val navController = rememberNavController()
-      DemoNavHost(
-        supportFragmentManager,
-        navController,
-        demoViewModel,
-        currencyListViewModel
-      )
+      CryptoTheme {
+        val navController = rememberNavController()
+        DemoNavHost(
+          supportFragmentManager,
+          navController,
+          demoViewModel,
+          currencyListViewModel
+        )
+      }
     }
   }
 }
@@ -119,6 +125,7 @@ fun DemoScreen(
   }
 
   Scaffold(
+    modifier = Modifier.fillMaxSize(),
     snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
   ) { padding ->
     Column(

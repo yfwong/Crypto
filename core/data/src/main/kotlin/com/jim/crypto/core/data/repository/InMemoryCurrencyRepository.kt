@@ -12,7 +12,7 @@ class InMemoryCurrencyRepository {
   fun getItems(query: String): Flow<List<CurrencyInfo>> =
     _currencies.map { it.filterByQuery(query) }
 
-  suspend fun setItems(currencies: List<CurrencyInfo>) {
+  fun setItems(currencies: List<CurrencyInfo>) {
     _currencies.value = currencies
   }
 

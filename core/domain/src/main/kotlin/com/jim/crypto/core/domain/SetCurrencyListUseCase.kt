@@ -6,7 +6,7 @@ import com.jim.crypto.core.model.data.CurrencyInfo
 class SetCurrencyListUseCase(
   private val repository: InMemoryCurrencyRepository,
 ) {
-  suspend operator fun invoke(currencies: List<CurrencyInfo>) {
+  operator fun invoke(currencies: List<CurrencyInfo>) {
     repository.setItems(currencies)
   }
 }

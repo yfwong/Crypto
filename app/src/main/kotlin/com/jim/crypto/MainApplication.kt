@@ -2,6 +2,7 @@ package com.jim.crypto
 
 import android.app.Application
 import com.jim.crypto.core.data.di.dataModule
+import com.jim.crypto.core.data.di.dispatcherModule
 import com.jim.crypto.core.database.di.databaseModule
 import com.jim.crypto.core.domain.di.domainModule
 import com.jim.crypto.core.ui.di.uiModule
@@ -21,7 +22,8 @@ class MainApplication : Application() {
         uiModule,
         domainModule,
         dataModule,
-        databaseModule
+        databaseModule,
+        dispatcherModule
       )
     }
   }

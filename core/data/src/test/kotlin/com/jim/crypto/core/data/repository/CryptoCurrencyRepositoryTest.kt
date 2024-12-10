@@ -1,25 +1,44 @@
 package com.jim.crypto.core.data.repository
 
 import app.cash.turbine.test
+import com.jim.crypto.core.data.model.asCryptoEntity
 import com.jim.crypto.core.data.model.asExternalModel
 import com.jim.crypto.core.database.dao.CryptoCurrencyDao
 import com.jim.crypto.core.database.model.CryptoCurrencyEntity
+import com.jim.crypto.core.model.data.CurrencyInfo
+import io.mockk.Runs
 import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.just
 import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class CryptoCurrencyRepositoryTest {
 
   private lateinit var repository: CryptoCurrencyRepository
   private val dao: CryptoCurrencyDao = mockk()
+  private val dispatcher = StandardTestDispatcher()
 
   @Before
   fun setup() {
-    repository = CryptoCurrencyRepository(dao)
+    Dispatchers.setMain(dispatcher)
+    repository = CryptoCurrencyRepository(dao, dispatcher)
+  }
+
+  @After
+  fun tearDown() {
+    Dispatchers.resetMain()
   }
 
   @Test
@@ -32,7 +51,7 @@ class CryptoCurrencyRepositoryTest {
     repository.getItems().test {
       val result = awaitItem()
       assertEquals(expectedCurrencyInfos, result)
-      cancelAndIgnoreRemainingEvents()
+      awaitComplete()
     }
   }
 
@@ -48,7 +67,7 @@ class CryptoCurrencyRepositoryTest {
     repository.getItems("BTC").test {
       val result = awaitItem()
       assertEquals(listOf(cryptoEntities[0].asExternalModel()), result)
-      cancelAndIgnoreRemainingEvents()
+      awaitComplete()
     }
   }
 
@@ -61,5 +80,32 @@ class CryptoCurrencyRepositoryTest {
 
     val result = repository.getItemsSync()
     assertEquals(expectedCurrencyInfos, result)
+  }
+
+  @Test
+  fun `test insertItems calls dao insert`() = runTest {
+    val currenciesToInsert = listOf(
+      CurrencyInfo("BTC", "Bitcoin", "BTC"),
+      CurrencyInfo("ETH", "Ethereum", "ETH")
+    )
+
+    coEvery { dao.insertItems(any()) } just Runs
+
+    // Call the insertItems method
+    repository.inertItems(currenciesToInsert)
+
+    // Verify that the insert function of DAO was called
+    coVerify { dao.insertItems(currenciesToInsert.map { it.asCryptoEntity() }) }
+  }
+
+  @Test
+  fun `test deleteItems calls dao delete`() = runTest {
+    coEvery { dao.deleteItems() } just Runs
+
+    // Call the deleteItems method
+    repository.deleteItems()
+
+    // Verify that the delete function of DAO was called
+    coVerify { dao.deleteItems() }
   }
 }

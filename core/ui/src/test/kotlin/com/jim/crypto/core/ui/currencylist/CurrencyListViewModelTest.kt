@@ -71,7 +71,7 @@ class CurrencyListViewModelTest {
   }
 
   @Test
-  fun `test pagedItems emits search results after debounce and distinctUntilChanged`() = runTest {
+  fun `test Items emits search results after debounce and distinctUntilChanged`() = runTest {
     val currencyInfoList = listOf(
       CurrencyInfo("BTC", "Bitcoin", "BTC"),
       CurrencyInfo("ETH", "Ethereum", "ETH")
@@ -82,7 +82,7 @@ class CurrencyListViewModelTest {
 
     // Simulate a query change and collect the emitted value
     viewModel.onQueryChange("Bit")
-    viewModel.pagedItems.test {
+    viewModel.items.test {
       // Check that the emitted items match the expected list
       assertEquals(currencyInfoList, awaitItem())
       cancelAndIgnoreRemainingEvents()

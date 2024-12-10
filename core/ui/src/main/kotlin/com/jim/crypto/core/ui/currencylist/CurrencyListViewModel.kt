@@ -26,7 +26,7 @@ class CurrencyListViewModel(
   val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 
   @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
-  val pagedItems: Flow<List<CurrencyInfo>> = _searchQuery
+  val items: Flow<List<CurrencyInfo>> = _searchQuery
     .debounce(SEARCH_DEBOUNCE_MS) // To handle quick typing
     .distinctUntilChanged() // Avoid unnecessary updates
     .flatMapLatest { query ->

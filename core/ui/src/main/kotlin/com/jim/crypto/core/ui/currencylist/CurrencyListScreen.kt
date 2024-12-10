@@ -2,6 +2,7 @@
 
 package com.jim.crypto.core.ui.currencylist
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.jim.crypto.core.model.data.CurrencyInfo
 import com.jim.crypto.core.ui.component.SearchTopBar
+import com.jim.crypto.core.ui.theme.Colors
 
 @Composable
 fun CurrencyListScreen(
@@ -29,7 +31,7 @@ fun CurrencyListScreen(
 ) {
   val isShowSearchInput by viewModel.isShowSearchInput.collectAsState()
   val query by viewModel.searchQuery.collectAsState()
-  val items by viewModel.pagedItems.collectAsState(emptyList())
+  val items by viewModel.items.collectAsState(emptyList())
 
   LaunchedEffect(currencies) {
     viewModel.initializeCurrencyList(currencies)
@@ -49,7 +51,12 @@ fun CurrencyListScreen(
         DefaultSearchBar(viewModel::onSearchClick)
       }
     }) { padding ->
-    LazyColumn(modifier = Modifier.padding(padding)) {
+    LazyColumn(
+      modifier = Modifier
+        .fillMaxSize()
+        .background(Colors.CurrencyListBg)
+        .padding(padding)
+    ) {
       items(
         count = items.size,
         key = { index -> items[index].id }

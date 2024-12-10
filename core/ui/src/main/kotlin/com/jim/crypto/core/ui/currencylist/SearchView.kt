@@ -10,8 +10,8 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.jim.crypto.core.ui.component.SearchBar
+import com.jim.crypto.core.ui.theme.Colors
 import com.jim.crypto.core.ui.theme.Dimens
 
 @Composable
@@ -34,7 +34,7 @@ fun SearchView(
       modifier = Modifier
         .fillMaxWidth()
         .clickable { onSearchClick() }
-        .background(Color.LightGray)
+        .background(Colors.SearchViewBg)
         .padding(Dimens.Medium)
     ) {
       Icon(

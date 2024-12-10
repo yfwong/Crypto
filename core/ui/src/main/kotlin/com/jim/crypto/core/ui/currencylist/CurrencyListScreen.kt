@@ -1,6 +1,8 @@
 package com.jim.crypto.core.ui.currencylist
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
@@ -9,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.jim.crypto.core.model.data.CurrencyInfo
+import com.jim.crypto.core.ui.theme.Colors
 
 @Composable
 fun CurrencyListScreen(
@@ -19,9 +22,14 @@ fun CurrencyListScreen(
   val query by viewModel.searchQuery.collectAsState()
   val items by viewModel.pagedItems.collectAsState(emptyList())
 
+  // TODO
   viewModel.initializeCurrencyList(currencies)
 
-  Column(modifier = Modifier) {
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .background(Colors.CurrencyListBg)
+  ) {
     SearchView(
       isShowSearchInput, query,
       onSearchClick = viewModel::onSearchClick,

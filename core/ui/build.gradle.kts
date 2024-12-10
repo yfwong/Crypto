@@ -50,6 +50,7 @@ dependencies {
   // Jetpack Compose integration
   implementation(libs.androidx.paging.runtime)  // Paging 3
   implementation(libs.androidx.paging.compose) // Paging for Jetpack Compose
+  implementation(libs.gson)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

@@ -1,8 +1,8 @@
 package com.jim.crypto
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -21,22 +21,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.jim.crypto.core.model.data.CurrencyInfo
+import com.jim.crypto.core.ui.currencylist.CurrencyListFragment
 import com.jim.crypto.core.ui.currencylist.CurrencyListScreen
 import com.jim.crypto.core.ui.currencylist.CurrencyListViewModel
 import com.jim.crypto.core.ui.theme.Dimens
-import com.jim.crypto.ui.theme.CryptoTheme
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DemoActivity : ComponentActivity() {
+class DemoActivity : AppCompatActivity() {
 
   private val demoViewModel: DemoViewModel by viewModel()
   private val currencyListViewModel: CurrencyListViewModel by viewModel()
@@ -44,31 +45,66 @@ class DemoActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
-      CryptoTheme {
-        val navController = rememberNavController()
-        NavHost(navController = navController, startDestination = "demo") {
-          // Demo screen with 5 buttons
-          composable("demo") { DemoScreen(navController, demoViewModel) }
-
-          // Currency list screen for display and search currencyInfo items
-          composable(
-            route = "CurrencyList/{currencies}",
-            arguments = listOf(navArgument("currencies") { type = NavType.StringType })
-          ) { backStackEntry ->
-            val json = backStackEntry.arguments?.getString("currencies")
-            val currencies = json?.let {
-              Json.decodeFromString<List<CurrencyInfo>>(it)
-            } ?: emptyList()
-            CurrencyListScreen(currencies = currencies, currencyListViewModel)
-          }
-        }
-      }
+      val navController = rememberNavController()
+      DemoNavHost(
+        supportFragmentManager,
+        navController,
+        demoViewModel,
+        currencyListViewModel
+      )
     }
   }
 }
 
 @Composable
-fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
+fun DemoNavHost(
+  fragmentManager: FragmentManager,
+  navController: NavHostController,
+  demoViewModel: DemoViewModel,
+  currencyListViewModel: CurrencyListViewModel
+) {
+  NavHost(navController = navController, startDestination = "demo") {
+    // Demo screen with 5 buttons
+    composable("demo") {
+      DemoScreen(
+        viewModel = demoViewModel,
+        onNavigateToCurrencyList = { currencies ->
+          // attach CurrencyListFragment (which is a wrapper of CurrencyListScreen)
+          fragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(android.R.id.content, CurrencyListFragment.newInstance(currencies))
+            addToBackStack(null)
+          }
+
+          // or... attach composable directly
+//          val jsonString = Json.encodeToString(
+//            ListSerializer(CurrencyInfo.serializer()),
+//            currencies
+//          )
+//          navController.navigate("CurrencyList/${jsonString}")
+        }
+      )
+    }
+
+    // Currency list screen for display and search currencyInfo items
+    composable(
+      route = "CurrencyList/{currencies}",
+      arguments = listOf(navArgument("currencies") { type = NavType.StringType })
+    ) { backStackEntry ->
+      val json = backStackEntry.arguments?.getString("currencies")
+      val currencies = json?.let {
+        Json.decodeFromString<List<CurrencyInfo>>(it)
+      } ?: emptyList()
+      CurrencyListScreen(currencies = currencies, currencyListViewModel)
+    }
+  }
+}
+
+@Composable
+fun DemoScreen(
+  viewModel: DemoViewModel,
+  onNavigateToCurrencyList: (currencies: List<CurrencyInfo>) -> Unit
+) {
   val context = LocalContext.current
   val cryptoCurrencies by viewModel.getCryptoCurrenciesFromDb().collectAsState(emptyList())
   val fiatCurrencies by viewModel.getFiatCurrenciesFromDb().collectAsState(emptyList())
@@ -104,18 +140,14 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
         Text(stringResource(R.string.insert_data))
       }
       Button(onClick = {
-        navController.navigate("CurrencyList/${Json.encodeToString(cryptoCurrencies)}")
+        onNavigateToCurrencyList(cryptoCurrencies)
       }) {
         Text(stringResource(R.string.open_crypto_currency_list))
       }
-      Button(onClick = {
-        navController.navigate("CurrencyList/${Json.encodeToString(fiatCurrencies)}")
-      }) {
+      Button(onClick = { onNavigateToCurrencyList(fiatCurrencies) }) {
         Text(stringResource(R.string.open_fiat_currency_list))
       }
-      Button(onClick = {
-        navController.navigate("CurrencyList/${Json.encodeToString(bothCurrencies)}")
-      }) {
+      Button(onClick = { onNavigateToCurrencyList(bothCurrencies) }) {
         Text(stringResource(R.string.open_both_currency_list))
       }
     }

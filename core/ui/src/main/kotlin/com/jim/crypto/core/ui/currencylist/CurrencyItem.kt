@@ -18,15 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.jim.crypto.core.model.data.CurrencyInfo
-import com.jim.crypto.core.ui.theme.Dimens
 import com.jim.crypto.core.ui.component.LetterBadge
+import com.jim.crypto.core.ui.theme.Colors
+import com.jim.crypto.core.ui.theme.Dimens
 
 @Composable
 fun CurrencyItem(currency: CurrencyInfo) {
   Row(
     modifier = Modifier
       .fillMaxWidth()
-      .background(Color.White)
+      .background(Colors.CurrencyItemBg)
       .padding(Dimens.Medium),
     horizontalArrangement = Arrangement.Start,
     verticalAlignment = Alignment.CenterVertically
@@ -40,7 +41,7 @@ fun CurrencyItem(currency: CurrencyInfo) {
       Text(
         text = currency.symbol,
         style = typography.bodyLarge,
-        color = Color.DarkGray
+        color = Colors.CurrencySymbolTextColor
       )
       Icon(
         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,

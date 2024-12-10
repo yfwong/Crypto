@@ -28,10 +28,6 @@ class CurrencyListViewModel(
   private val _searchQuery = MutableStateFlow("")
   val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 
-  companion object {
-    const val SEARCH_DEBOUNCE_MS = 200L
-  }
-
   @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
   val pagedItems: Flow<List<CurrencyInfo>> = _searchQuery
     .debounce(SEARCH_DEBOUNCE_MS) // To handle quick typing
@@ -59,5 +55,9 @@ class CurrencyListViewModel(
 
   fun onSearchClick() {
     _isShowSearchInput.value = true
+  }
+
+  companion object {
+    const val SEARCH_DEBOUNCE_MS = 200L
   }
 }

@@ -14,7 +14,7 @@ mockk = "1.13.5"
 navigation = "2.8.4"
 room = "2.6.1"
 koin = "4.0.0"
-ksp = "2.0.21-1.0.28"
+ksp = "2.1.0-1.0.29"
 turbine = "1.1.0"
 serialization = "2.1.0"
 

@@ -42,12 +42,7 @@ dependencies {
   implementation(project(":core:ui"))
 
   implementation(libs.kotlinx.serialization.json)
-//  implementation("androidx.core:core-ktx:1.15.0")
-//  implementation("androidx.appcompat:appcompat:1.7.0")
-//  implementation("androidx.fragment:fragment-ktx:1.8.5")
   implementation(libs.androidx.core.ktx)
-  implementation(libs.androidx.lifecycle.runtime.ktx)
-  implementation(libs.androidx.lifecycle.viewmodel.ktx)
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.androidx.ui)

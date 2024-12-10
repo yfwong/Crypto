@@ -37,8 +37,6 @@ dependencies {
 
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.androidx.core.ktx)
-  implementation(libs.androidx.lifecycle.runtime.ktx)
-  implementation(libs.androidx.lifecycle.viewmodel.ktx)
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.androidx.ui)
@@ -49,9 +47,6 @@ dependencies {
   implementation(libs.koin.android)
   implementation(libs.koin.test)
   implementation(libs.koin.androidx.compose)
-  // Jetpack Compose integration
-  implementation(libs.androidx.paging.runtime)  // Paging 3
-  implementation(libs.androidx.paging.compose) // Paging for Jetpack Compose
   implementation(libs.gson)
 
   testImplementation(libs.junit)

@@ -34,7 +34,6 @@ dependencies {
   api(project(":core:model"))
 
   implementation(libs.androidx.core.ktx)
-  implementation(libs.androidx.paging.runtime.ktx)
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
@@ -46,5 +45,4 @@ dependencies {
   testImplementation(libs.kotlinx.coroutines.test)
   testImplementation(libs.mockk)
   testImplementation(libs.turbine)
-  testImplementation(libs.androidx.paging.testing)
 }

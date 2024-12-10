@@ -17,6 +17,8 @@ android {
     room {
       schemaDirectory("$projectDir/schemas")
     }
+
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
   buildTypes {
@@ -32,6 +34,9 @@ android {
   kotlinOptions {
     jvmTarget = "11"
   }
+  packaging {
+    resources.excludes.add("META-INF/*")
+  }
 }
 
 dependencies {
@@ -42,10 +47,14 @@ dependencies {
   implementation(libs.koin.test)
   // RoomDB
   implementation(libs.androidx.room.runtime)
+  implementation(libs.core.ktx)
   ksp(libs.androidx.room.compiler)
   implementation(libs.androidx.room.ktx)
   testImplementation(libs.androidx.room.testing)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
+  androidTestImplementation(libs.kotlinx.coroutines.test)
+  androidTestImplementation(libs.turbine)
+  androidTestImplementation(libs.androidx.test.runner)
 }

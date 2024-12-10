@@ -3,9 +3,9 @@ package com.jim.crypto
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jim.crypto.core.data.repository.CryptoCurrencyRepository
-import com.jim.crypto.core.data.repository.DemoJsonRepository
 import com.jim.crypto.core.data.repository.FiatCurrencyRepository
 import com.jim.crypto.core.model.data.CurrencyInfo
+import com.jim.crypto.data.repository.DemoJsonRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

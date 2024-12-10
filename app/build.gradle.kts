@@ -53,6 +53,8 @@ dependencies {
   implementation(libs.koin.android)
   implementation(libs.koin.test)
   implementation(libs.koin.androidx.compose)
+  // Gson
+  implementation(libs.gson)
   // Jetpack Compose integration
   implementation(libs.androidx.navigation.compose)
   // Testing Navigation

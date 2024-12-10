@@ -1,4 +1,4 @@
-package com.jim.crypto.core.data.repository
+package com.jim.crypto.data.repository
 
 import android.content.Context
 import androidx.annotation.RawRes

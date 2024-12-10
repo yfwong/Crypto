@@ -37,8 +37,6 @@ dependencies {
   // Koin
   implementation(libs.koin.android)
   implementation(libs.koin.test)
-  // Gson
-  implementation(libs.gson)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

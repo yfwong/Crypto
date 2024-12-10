@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -22,8 +23,9 @@ fun CurrencyListScreen(
   val query by viewModel.searchQuery.collectAsState()
   val items by viewModel.pagedItems.collectAsState(emptyList())
 
-  // TODO
-  viewModel.initializeCurrencyList(currencies)
+  LaunchedEffect(currencies) {
+    viewModel.initializeCurrencyList(currencies)
+  }
 
   Column(
     modifier = Modifier

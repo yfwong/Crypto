@@ -72,7 +72,7 @@ fun DemoNavHost(
           // attach CurrencyListFragment (which is a wrapper of CurrencyListScreen)
           fragmentManager.commit {
             setReorderingAllowed(true)
-            replace(android.R.id.content, CurrencyListFragment.newInstance(currencies))
+            replace(android.R.id.content, CurrencyListFragment.newInstance(ArrayList(currencies)))
             addToBackStack(null)
           }
 

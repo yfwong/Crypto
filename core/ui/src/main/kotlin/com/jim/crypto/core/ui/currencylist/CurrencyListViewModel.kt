@@ -2,8 +2,8 @@ package com.jim.crypto.core.ui.currencylist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jim.crypto.core.domain.SearchInMemoryCurrencyListUseCase
-import com.jim.crypto.core.domain.SetInMemoryCurrencyListUseCase
+import com.jim.crypto.core.domain.SearchCurrencyListUseCase
+import com.jim.crypto.core.domain.SetCurrencyListUseCase
 import com.jim.crypto.core.model.data.CurrencyInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,8 +18,8 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 class CurrencyListViewModel(
-  private val setInMemoryCurrencyListUseCase: SetInMemoryCurrencyListUseCase,
-  private val searchCurrencyListUseCase: SearchInMemoryCurrencyListUseCase
+  private val setCurrencyListUseCase: SetCurrencyListUseCase,
+  private val searchCurrencyListUseCase: SearchCurrencyListUseCase
 ) : ViewModel() {
 
   private val _isShowSearchInput = MutableStateFlow(false)
@@ -40,7 +40,7 @@ class CurrencyListViewModel(
 
   fun initializeCurrencyList(currencies: List<CurrencyInfo>) {
     viewModelScope.launch(Dispatchers.IO) {
-      setInMemoryCurrencyListUseCase(currencies)
+      setCurrencyListUseCase(currencies)
     }
   }
 

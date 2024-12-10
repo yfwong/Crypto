@@ -23,6 +23,9 @@ interface CryptoCurrencyDao {
   @Query("SELECT * FROM crypto_currency")
   fun getItems(): Flow<List<CryptoCurrencyEntity>>
 
+  @Query("SELECT * FROM crypto_currency")
+  suspend fun getItemsSync(): List<CryptoCurrencyEntity>
+
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertItems(currencies: List<CryptoCurrencyEntity>)
 

@@ -17,6 +17,9 @@ class FiatCurrencyRepository(
   override fun getItems(query: String): Flow<List<CurrencyInfo>> =
     dao.getItems(query).map { flow -> flow.map { it.asExternalModel() } }
 
+  override suspend fun getItemsSync(): List<CurrencyInfo> =
+    dao.getItemsSync().map { it.asExternalModel() }
+
   override suspend fun inertItems(currencies: List<CurrencyInfo>) =
     dao.insertItems(currencies.map { it.asFiatEntity() })
 

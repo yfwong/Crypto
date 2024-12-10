@@ -2,6 +2,7 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.serialization)
 }
 
 android {
@@ -40,6 +41,10 @@ dependencies {
 
   implementation(project(":core:ui"))
 
+  implementation(libs.kotlinx.serialization.json)
+//  implementation("androidx.core:core-ktx:1.15.0")
+//  implementation("androidx.appcompat:appcompat:1.7.0")
+//  implementation("androidx.fragment:fragment-ktx:1.8.5")
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.lifecycle.viewmodel.ktx)

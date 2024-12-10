@@ -3,11 +3,13 @@ package com.jim.crypto.core.ui.di
 import com.jim.crypto.core.ui.currencylist.AllCurrencyListViewModel
 import com.jim.crypto.core.ui.currencylist.CryptoCurrencyListViewModel
 import com.jim.crypto.core.ui.currencylist.FiatCurrencyListViewModel
-import org.koin.core.module.dsl.viewModel
+import com.jim.crypto.core.ui.currencylist.InMemoryCurrencyListViewModel
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val uiModule = module {
-  viewModel { CryptoCurrencyListViewModel(get()) }
-  viewModel { FiatCurrencyListViewModel(get()) }
-  viewModel { AllCurrencyListViewModel(get()) }
+  viewModelOf(::CryptoCurrencyListViewModel)
+  viewModelOf(::FiatCurrencyListViewModel)
+  viewModelOf(::AllCurrencyListViewModel)
+  viewModelOf(::InMemoryCurrencyListViewModel)
 }

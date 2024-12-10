@@ -9,6 +9,8 @@ interface CurrencyRepository {
 
   fun getItems(query: String): Flow<List<CurrencyInfo>>
 
+  suspend fun getItemsSync(): List<CurrencyInfo>
+
   suspend fun inertItems(currencies: List<CurrencyInfo>)
 
   suspend fun deleteItems()

@@ -23,6 +23,9 @@ interface FiatCurrencyDao {
   @Query("SELECT * FROM fiat_currency")
   fun getItems(): Flow<List<FiatCurrencyEntity>>
 
+  @Query("SELECT * FROM fiat_currency")
+  suspend fun getItemsSync(): List<FiatCurrencyEntity>
+
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertItems(currencies: List<FiatCurrencyEntity>)
 

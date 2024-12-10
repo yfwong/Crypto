@@ -22,14 +22,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.jim.crypto.core.ui.currencylist.AllCurrencyListScreen
-import com.jim.crypto.core.ui.currencylist.CryptoCurrencyListScreen
-import com.jim.crypto.core.ui.currencylist.FiatCurrencyListScreen
+import androidx.navigation.navArgument
+import com.jim.crypto.core.model.data.CurrencyInfo
+import com.jim.crypto.core.ui.currencylist.InMemoryCurrencyListScreen
 import com.jim.crypto.core.ui.theme.Dimens
 import com.jim.crypto.ui.theme.CryptoTheme
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -44,9 +47,16 @@ class DemoActivity : ComponentActivity() {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "demo") {
           composable("demo") { DemoScreen(navController, demoViewModel) }
-          composable("CryptoCurrencyList") { CryptoCurrencyListScreen(getViewModel()) }
-          composable("FiatCurrencyList") { FiatCurrencyListScreen(getViewModel()) }
-          composable("MixedCurrencyList") { AllCurrencyListScreen(getViewModel()) }
+          composable(
+            route = "CurrencyList/{currencies}",
+            arguments = listOf(navArgument("currencies") { type = NavType.StringType })
+          ) { backStackEntry ->
+            val json = backStackEntry.arguments?.getString("currencies")
+            val currencies = json?.let {
+              Json.decodeFromString<List<CurrencyInfo>>(it)
+            } ?: emptyList()
+            InMemoryCurrencyListScreen(currencies = currencies, getViewModel())
+          }
         }
       }
     }
@@ -56,6 +66,9 @@ class DemoActivity : ComponentActivity() {
 @Composable
 fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
   val context = LocalContext.current
+  val cryptoCurrencies by viewModel.getCryptoCurrenciesFromDb().collectAsState(emptyList())
+  val fiatCurrencies by viewModel.getFiatCurrenciesFromDb().collectAsState(emptyList())
+  val bothCurrencies by viewModel.getBothCurrenciesFromDb().collectAsState(emptyList())
   val snackbarMessage by viewModel.snackbarMessage.collectAsState()
   val snackbarHostState = SnackbarHostState()
 
@@ -86,14 +99,20 @@ fun DemoScreen(navController: NavController, viewModel: DemoViewModel) {
       }) {
         Text(stringResource(R.string.insert_data))
       }
-      Button(onClick = { navController.navigate("CryptoCurrencyList") }) {
+      Button(onClick = {
+        navController.navigate("CurrencyList/${Json.encodeToString(cryptoCurrencies)}")
+      }) {
         Text(stringResource(R.string.open_crypto_currency_list))
       }
-      Button(onClick = { navController.navigate("FiatCurrencyList") }) {
+      Button(onClick = {
+        navController.navigate("CurrencyList/${Json.encodeToString(fiatCurrencies)}")
+      }) {
         Text(stringResource(R.string.open_fiat_currency_list))
       }
-      Button(onClick = { navController.navigate("MixedCurrencyList") }) {
-        Text(stringResource(R.string.open_mixed_currency_list))
+      Button(onClick = {
+        navController.navigate("CurrencyList/${Json.encodeToString(bothCurrencies)}")
+      }) {
+        Text(stringResource(R.string.open_both_currency_list))
       }
     }
   }

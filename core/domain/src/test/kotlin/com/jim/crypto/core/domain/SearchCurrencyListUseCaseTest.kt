@@ -5,7 +5,7 @@
 //import androidx.paging.PagingData
 //import app.cash.turbine.test
 //import com.jim.crypto.core.data.repository.CurrencyRepository
-//import com.jim.crypto.core.domain.usecase.SearchInMemoryCurrencyListUseCase
+//import com.jim.crypto.core.domain.SearchInMemoryCurrencyListUseCase
 //import com.jim.crypto.core.model.data.CurrencyInfo
 //import io.mockk.coEvery
 //import io.mockk.mockk

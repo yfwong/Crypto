@@ -28,17 +28,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.jim.crypto.core.model.data.CurrencyInfo
-import com.jim.crypto.core.ui.currencylist.InMemoryCurrencyListScreen
+import com.jim.crypto.core.ui.currencylist.CurrencyListScreen
+import com.jim.crypto.core.ui.currencylist.CurrencyListViewModel
 import com.jim.crypto.core.ui.theme.Dimens
 import com.jim.crypto.ui.theme.CryptoTheme
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DemoActivity : ComponentActivity() {
 
   private val demoViewModel: DemoViewModel by viewModel()
+  private val currencyListViewModel: CurrencyListViewModel by viewModel()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -46,7 +47,10 @@ class DemoActivity : ComponentActivity() {
       CryptoTheme {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "demo") {
+          // Demo screen with 5 buttons
           composable("demo") { DemoScreen(navController, demoViewModel) }
+
+          // Currency list screen for display and search currencyInfo items
           composable(
             route = "CurrencyList/{currencies}",
             arguments = listOf(navArgument("currencies") { type = NavType.StringType })
@@ -55,7 +59,7 @@ class DemoActivity : ComponentActivity() {
             val currencies = json?.let {
               Json.decodeFromString<List<CurrencyInfo>>(it)
             } ?: emptyList()
-            InMemoryCurrencyListScreen(currencies = currencies, getViewModel())
+            CurrencyListScreen(currencies = currencies, currencyListViewModel)
           }
         }
       }

@@ -9,20 +9,20 @@ import kotlinx.coroutines.flow.map
 
 class FiatCurrencyRepository(
   private val dao: FiatCurrencyDao
-) : CurrencyRepository {
+) {
 
-  override fun getItems(): Flow<List<CurrencyInfo>> =
+  fun getItems(): Flow<List<CurrencyInfo>> =
     dao.getItems().map { flow -> flow.map { it.asExternalModel() } }
 
-  override fun getItems(query: String): Flow<List<CurrencyInfo>> =
+  fun getItems(query: String): Flow<List<CurrencyInfo>> =
     dao.getItems(query).map { flow -> flow.map { it.asExternalModel() } }
 
-  override suspend fun getItemsSync(): List<CurrencyInfo> =
+  suspend fun getItemsSync(): List<CurrencyInfo> =
     dao.getItemsSync().map { it.asExternalModel() }
 
-  override suspend fun inertItems(currencies: List<CurrencyInfo>) =
+  suspend fun inertItems(currencies: List<CurrencyInfo>) =
     dao.insertItems(currencies.map { it.asFiatEntity() })
 
-  override suspend fun deleteItems() =
+  suspend fun deleteItems() =
     dao.deleteItems()
 }

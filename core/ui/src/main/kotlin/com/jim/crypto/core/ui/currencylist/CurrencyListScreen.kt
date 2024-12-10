@@ -8,12 +8,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.jim.crypto.core.model.data.CurrencyInfo
 
 @Composable
-fun AllCurrencyListScreen(viewModel: AllCurrencyListViewModel) {
+fun CurrencyListScreen(
+  currencies: List<CurrencyInfo>,
+  viewModel: CurrencyListViewModel
+) {
   val isShowSearchInput by viewModel.isShowSearchInput.collectAsState()
   val query by viewModel.searchQuery.collectAsState()
   val items by viewModel.pagedItems.collectAsState(emptyList())
+
+  viewModel.initializeCurrencyList(currencies)
 
   Column(modifier = Modifier) {
     SearchView(

@@ -1,4 +1,4 @@
-package com.jim.crypto.core.domain.usecase
+package com.jim.crypto.core.domain
 
 import com.jim.crypto.core.data.repository.InMemoryCurrencyRepository
 import com.jim.crypto.core.model.data.CurrencyInfo

@@ -66,9 +66,11 @@ fun CurrencyListScreen(
           HorizontalDivider(color = if (isShowSearchInput) Color.Gray else Color.Transparent)
         }
       }
+      if (isShowSearchInput && items.isEmpty())
+        item {
+          EmptySearchResultView()
+        }
     }
-    if (isShowSearchInput && items.isEmpty())
-      EmptySearchResultView()
   }
 }
 

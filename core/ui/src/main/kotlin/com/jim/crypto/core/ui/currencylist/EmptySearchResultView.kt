@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
@@ -16,11 +17,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jim.crypto.core.ui.R
+import com.jim.crypto.core.ui.theme.Dimens
 
 @Composable
 fun EmptySearchResultView() {
   Column(
-    modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+    modifier = Modifier
+      .fillMaxWidth()
+      .fillMaxHeight()
+      .padding(Dimens.Large),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Center
   ) {

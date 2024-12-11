@@ -5,14 +5,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 
-class InMemoryCurrencyRepository {
+interface InMemoryCurrencyRepository {
+  fun getItems(query: String): Flow<List<CurrencyInfo>>
+  fun setItems(currencies: List<CurrencyInfo>)
+}
+
+class InMemoryCurrencyRepositoryImpl : InMemoryCurrencyRepository {
 
   private val _currencies = MutableStateFlow<List<CurrencyInfo>>(emptyList())
 
-  fun getItems(query: String): Flow<List<CurrencyInfo>> =
+  override fun getItems(query: String): Flow<List<CurrencyInfo>> =
     _currencies.map { it.filterByQuery(query) }
 
-  fun setItems(currencies: List<CurrencyInfo>) {
+  override fun setItems(currencies: List<CurrencyInfo>) {
     _currencies.value = currencies
   }
 

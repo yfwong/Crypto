@@ -33,7 +33,7 @@ class FiatCurrencyRepositoryTest {
   @Before
   fun setup() {
     Dispatchers.setMain(dispatcher)
-    repository = FiatCurrencyRepository(dao, dispatcher)
+    repository = FiatCurrencyRepositoryImpl(dao, dispatcher)
   }
 
   @After

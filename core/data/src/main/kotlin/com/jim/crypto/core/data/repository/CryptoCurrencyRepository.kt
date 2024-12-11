@@ -9,26 +9,35 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
-class CryptoCurrencyRepository(
+interface CryptoCurrencyRepository {
+
+  fun getItems(): Flow<List<CurrencyInfo>>
+  fun getItems(query: String): Flow<List<CurrencyInfo>>
+  suspend fun getItemsSync(): List<CurrencyInfo>
+  suspend fun inertItems(currencies: List<CurrencyInfo>)
+  suspend fun deleteItems()
+}
+
+class CryptoCurrencyRepositoryImpl(
   private val dao: CryptoCurrencyDao,
   private val dispatcher: CoroutineDispatcher
-) {
+) : CryptoCurrencyRepository {
 
-  fun getItems(): Flow<List<CurrencyInfo>> =
+  override fun getItems(): Flow<List<CurrencyInfo>> =
     dao.getItems().map { flow -> flow.map { it.asExternalModel() } }
 
-  fun getItems(query: String): Flow<List<CurrencyInfo>> =
+  override fun getItems(query: String): Flow<List<CurrencyInfo>> =
     dao.getItems(query).map { flow -> flow.map { it.asExternalModel() } }
 
-  suspend fun getItemsSync(): List<CurrencyInfo> = withContext(dispatcher) {
+  override suspend fun getItemsSync(): List<CurrencyInfo> = withContext(dispatcher) {
     dao.getItemsSync().map { it.asExternalModel() }
   }
 
-  suspend fun inertItems(currencies: List<CurrencyInfo>) = withContext(dispatcher) {
+  override suspend fun inertItems(currencies: List<CurrencyInfo>) = withContext(dispatcher) {
     dao.insertItems(currencies.map { it.asCryptoEntity() })
   }
 
-  suspend fun deleteItems() = withContext(dispatcher) {
+  override suspend fun deleteItems() = withContext(dispatcher) {
     dao.deleteItems()
   }
 }

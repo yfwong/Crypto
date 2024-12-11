@@ -33,7 +33,7 @@ class CryptoCurrencyRepositoryTest {
   @Before
   fun setup() {
     Dispatchers.setMain(dispatcher)
-    repository = CryptoCurrencyRepository(dao, dispatcher)
+    repository = CryptoCurrencyRepositoryImpl(dao, dispatcher)
   }
 
   @After

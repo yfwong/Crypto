@@ -14,7 +14,7 @@ class InMemoryCurrencyRepositoryTest {
 
   @Before
   fun setup() {
-    repository = InMemoryCurrencyRepository()
+    repository = InMemoryCurrencyRepositoryImpl()
   }
 
   @Test
